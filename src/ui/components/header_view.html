@@ -1,0 +1,153 @@
+<style>
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .header-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-brand);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .header-summary {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--primary-light);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    border: 1px solid rgba(123, 47, 247, 0.1);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .nav-btn {
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-edit {
+    background: var(--primary-light);
+    color: var(--primary-color);
+  }
+
+  .btn-edit:active {
+    transform: scale(0.95);
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .btn-reset {
+    background: #fff5f5;
+    color: #ff4b4b;
+  }
+
+  .team-badge {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .team-badge:hover .team-popup {
+    display: block;
+  }
+
+  .team-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 240px;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 1.25rem;
+    border: 1px solid var(--border-color);
+    margin-top: 12px;
+  }
+
+  .team-title {
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    border-bottom: 1.5px solid var(--primary-light);
+    padding-bottom: 6px;
+  }
+
+  .team-item {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--text-muted);
+  }
+
+  .team-item b {
+    color: var(--text-main);
+  }
+
+  /* Fixed Light Theme: Dark mode overrides removed */
+</style>
+
+<div class="header-container">
+  <div class="header-left">
+    <div class="header-logo">
+      <span>🎩 ZIPSA</span>
+    </div>
+    {% if summary %}
+    <div class="header-summary">
+      {{ summary }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="header-right">
+    <div class="team-badge">
+      <div class="nav-btn"
+        style="background: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(123, 47, 247, 0.2);">🧩 전문가 팀
+        설명
+      </div>
+      <div class="team-popup">
+        <div class="team-title">ZIPSA 에이전트 연합</div>
+        <div class="team-item"><b>🧩 Matchmaker</b>: 최적의 품종 매칭</div>
+        <div class="team-item"><b>🩺 Physician</b>: 건강 및 질병 상담</div>
+        <div class="team-item"><b>⚖️ Peacekeeper</b>: 행동 교정 및 훈련</div>
+        <div class="team-item"><b>🔭 Liaison</b>: 입양 및 구조 정보</div>
+        <div class="team-item"><b>💬 General</b>: 일상 대화 및 가이드</div>
+      </div>
+    </div>
+
+    <!-- UI 정리됨 -->
+  </div>
+</div>
+
+<!-- 자바스크립트 브릿지 제거됨: 네이티브 버튼 스타일링 방식으로 전환 -->

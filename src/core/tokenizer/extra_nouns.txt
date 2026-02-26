@@ -1,0 +1,642 @@
+-	NNG
+Abyssinian	NNG
+Abyssinian Cat	NNG
+Aegean	NNG
+Aegean Cat	NNG
+American Bobtail	NNG
+American Bobtail Cat	NNG
+American Curl	NNG
+American Curl Cat	NNG
+American Shorthair	NNG
+American Shorthair Cat	NNG
+American Wirehair	NNG
+American Wirehair Cat	NNG
+Anatolian	NNG
+Aphrodite's Giant	NNG
+Arabian Mau	NNG
+Asian Semi-longhair	NNG
+Australian Mist	NNG
+Australian Mist Cat	NNG
+Balinese	NNG
+Balinese Cat	NNG
+Bambino	NNG
+Bambino Cat	NNG
+Bengal	NNG
+Bengal Cat	NNG
+Birman	NNG
+Birman Cat	NNG
+Bombay	NNG
+Bombay Cat	NNG
+Brazilian Shorthair	NNG
+British Longhair	NNG
+British Longhair Cat	NNG
+British Shorthair	NNG
+British Shorthair Cat	NNG
+Burmese	NNG
+Burmese Cat	NNG
+Burmilla	NNG
+Burmilla Cat	NNG
+California Spangled	NNG
+California Spangled Cat	NNG
+Canadian Sphynx	NNG
+Caracat	NNG
+Ceylon	NNG
+Chantilly Tiffany	NNG
+Chantilly-Tiffany	NNG
+Chartreux	NNG
+Chartreux Cat	NNG
+Chausie	NNG
+Chausie Cat	NNG
+Cheetoh	NNG
+Cheetoh Cat	NNG
+Colorpoint Shorthair	NNG
+Colorpoint Shorthair Cat	NNG
+Cornish Rex	NNG
+Cornish Rex Cat	NNG
+Cymric	NNG
+Cymric Cat	NNG
+Cyprus	NNG
+Cyprus Cat	NNG
+Desert Lynx	NNG
+Devon Rex	NNG
+Devon Rex Cat	NNG
+Don Hairless	NNG
+Don Sphynx	NNG
+Donskoy	NNG
+Dragon Li	NNG
+Dwelf	NNG
+Egyptian Mau	NNG
+Egyptian Mau Cat	NNG
+Elf	NNG
+European Burmese	NNG
+European Shorthair	NNG
+Exotic Shorthair	NNG
+Exotic Shorthair Cat	NNG
+Genetta	NNG
+German Rex	NNG
+Havana Brown	NNG
+Havana Brown Cat	NNG
+Highlander	NNG
+Himalayan	NNG
+Himalayan Cat	NNG
+Japanese Bobtail	NNG
+Japanese Bobtail Cat	NNG
+Javanese	NNG
+Javanese Cat	NNG
+Khao Manee	NNG
+Khao Manee Cat	NNG
+Kinkalow	NNG
+Kohana	NNG
+Korat	NNG
+Korat Cat	NNG
+Korean Shorthair	NNG
+Korean Shorthair Cat	NNG
+Kurilian Bobtail	NNG
+Kurilian Bobtail Cat	NNG
+LaPerm	NNG
+LaPerm Cat	NNG
+Lambkin	NNG
+Li Hua	NNG
+Li Hua Mao	NNG
+Lykoi	NNG
+Maine Coon	NNG
+Maine Coon Cat	NNG
+Malayan	NNG
+Malayan Cat	NNG
+Manx	NNG
+Manx Cat	NNG
+Mekong Bobtail	NNG
+Minuet	NNG
+Munchkin	NNG
+Munchkin Cat	NNG
+Nebelung	NNG
+Nebelung Cat	NNG
+Norwegian Forest	NNG
+Norwegian Forest Cat	NNG
+Ocicat	NNG
+Ocicat Cat	NNG
+Ojos Azules	NNG
+Oregon Rex	NNG
+Oriental	NNG
+Oriental Cat	NNG
+Oriental Longhair	NNG
+Oriental Shorthair	NNG
+Oriental Shorthair Cat	NNG
+Persian	NNG
+Persian Cat	NNG
+Persian Chinchilla	NNG
+Peterbald	NNG
+Pixie-bob	NNG
+Pixiebob	NNG
+Raas	NNG
+Ragamuffin	NNG
+Ragamuffin Cat	NNG
+Ragdoll	NNG
+Ragdoll Cat	NNG
+Russian Blue	NNG
+Russian Blue Cat	NNG
+Safari	NNG
+Savannah	NNG
+Savannah Cat	NNG
+Scottish Fold	NNG
+Scottish Fold Cat	NNG
+Selkirk Rex	NNG
+Selkirk Rex Cat	NNG
+Serengeti	NNG
+Siamese	NNG
+Siamese Cat	NNG
+Siberian	NNG
+Siberian Cat	NNG
+Siberian Forest Cat	NNG
+Singapura	NNG
+Singapura Cat	NNG
+Skookum	NNG
+Snowshoe	NNG
+Snowshoe Cat	NNG
+Sokoke	NNG
+Somali	NNG
+Somali Cat	NNG
+Sphynx	NNG
+Sphynx Cat	NNG
+Tennessee Rex	NNG
+Tonkinese	NNG
+Tonkinese Cat	NNG
+Toyger	NNG
+Toyger Cat	NNG
+Turkish Angora	NNG
+Turkish Angora Cat	NNG
+Turkish Van	NNG
+Turkish Van Cat	NNG
+Ukrainian Levkoy	NNG
+Wegie	NNG
+York Chocolate	NNG
+York Chocolate Cat	NNG
+가필드 고양이	NNG
+검은 고양이	NNG
+게르만 렉스	NNG
+길고양이	NNG
+나너스 렉스	NNG
+나폴레옹	NNG
+네벨렁	NNG
+네벨룽	NNG
+네벨룽 고양이	NNG
+네벨룽 냥이	NNG
+네벨룽캣	NNG
+노르웨이 숲	NNG
+노르웨이 숲 고양이	NNG
+노르웨이숲	NNG
+노르웨이지안 포레스트	NNG
+노르웨이지안 포레스트 캣	NNG
+노숲	NNG
+놀숲	NNG
+놀숲 고양이	NNG
+놀숲냥	NNG
+늑대 고양이	NNG
+니벨룽	NNG
+다이아몬드 눈 고양이	NNG
+다이아몬드 아이	NNG
+데본	NNG
+데본 렉스	NNG
+데본 렉스 고양이	NNG
+데본 렉스 캣	NNG
+데본렉스	NNG
+데본렉스 냥이	NNG
+데저트 링스	NNG
+데저트린스	NNG
+도둑고양이	NNG
+돈 스코이	NNG
+돈 스핑크스	NNG
+돈스코이	NNG
+돈스코이 고양이	NNG
+돈스코이 냥이	NNG
+돈스코이 스핑크스	NNG
+드래곤 리	NNG
+드래곤 리 고양이	NNG
+드래곤리	NNG
+드래곤리 냥이	NNG
+드웰프	NNG
+드웰프 캣 (먼치킨+스핑크스+아메리칸컬 교배종)	NNG
+라 펌	NNG
+라가머핀	NNG
+라가머핀 고양이	NNG
+라가머핀 냥이	NNG
+라스 캣	NNG
+라아스	NNG
+라이코이	NNG
+라퍼	NNG
+라펌	NNG
+라펌 고양이	NNG
+라펌 냥이	NNG
+래가머핀	NNG
+래거머핀	NNG
+래그돌	NNG
+래그돌 고양이	NNG
+랙돌	NNG
+랙돌 고양이	NNG
+랙돌냥	NNG
+램킨	NNG
+램킨 드워프	NNG
+러블	NNG
+러블 고양이	NNG
+러블(줄임말)	NNG
+러블냥	NNG
+러시아 블루	NNG
+러시안 블루	NNG
+러시안 블루 고양이	NNG
+러시안블루	NNG
+레오파드 고양이	NNG
+렉돌	NNG
+렉돌 고양이	NNG
+롱헤어 맹크스	NNG
+리 마오	NNG
+리 후아	NNG
+리코이	NNG
+리화	NNG
+리화묘	NNG
+말레이안	NNG
+말레이안 고양이	NNG
+말레이안 냥이	NNG
+맨스	NNG
+맨크스	NNG
+맹크스	NNG
+맹크스 고양이	NNG
+맹크스 냥이	NNG
+먼치킨	NNG
+먼치킨 고양이	NNG
+먼치킨 냥이	NNG
+먼치킨 롱레그	NNG
+먼치킨 숏레그	NNG
+먼치킨 캣	NNG
+메인 쿤	NNG
+메인 쿤 고양이	NNG
+메인 쿤 캣	NNG
+메인쿤	NNG
+메인쿤 냥이	NNG
+메인쿤 캣	NNG
+메콩 밥테일	NNG
+메콩밥테일	NNG
+미뉴에트	NNG
+발리	NNG
+발리네즈	NNG
+발리네즈 고양이	NNG
+발리네즈 냥이	NNG
+발리니스	NNG
+발리니즈	NNG
+밤비	NNG
+밤비노	NNG
+밤비노 고양이	NNG
+밤비노 냥이	NNG
+밤비노 캣	NNG
+뱅갈	NNG
+뱅갈 고양이	NNG
+뱅갈냥	NNG
+버마	NNG
+버마 고양이	NNG
+버만	NNG
+버만 고양이	NNG
+버만 캣	NNG
+버먼	NNG
+버먼 고양이	NNG
+버먼 냥이	NNG
+버미라	NNG
+버미즈	NNG
+버미즈 고양이	NNG
+버미즈 냥이	NNG
+버미즈 성묘	NNG
+버밀라	NNG
+버밀라 고양이	NNG
+버밀라 냥이	NNG
+벵갈	NNG
+벵갈 고양이	NNG
+벵갈냥	NNG
+봄바이	NNG
+봄바이 고양이	NNG
+봄배이	NNG
+봄베이	NNG
+봄베이 고양이	NNG
+봄베이 냥이	NNG
+봄베이 캣	NNG
+봉제인형 고양이	NNG
+브라질 숏헤어	NNG
+브라질리안 쇼트헤어	NNG
+브라질리언 숏헤어	NNG
+브리티쉬 롱	NNG
+브리티쉬 롱헤어	NNG
+브리티쉬 롱헤어 고양이	NNG
+브리티쉬 쇼트헤어	NNG
+브리티쉬 쇼트헤어 고양이	NNG
+브리티쉬 숏헤어	NNG
+브리티쉬롱	NNG
+브리티쉬롱헤어	NNG
+브리티쉬쇼트헤어	NNG
+브리티쉬숏	NNG
+브리티쉬숏헤어	NNG
+브리티시 롱	NNG
+브리티시 롱헤어	NNG
+브리티시 롱헤어 고양이	NNG
+브리티시 쇼트헤어	NNG
+브리티시 쇼트헤어 고양이	NNG
+브리티시 숏헤어	NNG
+브리티시롱	NNG
+브리티시롱헤어	NNG
+브리티시쇼트헤어	NNG
+브리티시숏	NNG
+브리티시숏헤어	NNG
+브숏	NNG
+브숏냥	NNG
+사막 삵	NNG
+사바나	NNG
+사바나 고양이	NNG
+사바나 냥이	NNG
+사바나 캣	NNG
+사바나캣	NNG
+사파리	NNG
+사파리 캣	NNG
+샤르트뢰	NNG
+샤르트뢰 고양이	NNG
+샤미즈	NNG
+샤미즈 캣	NNG
+샤트룩스	NNG
+샤트룩스 고양이	NNG
+샴	NNG
+샴 고양이	NNG
+샴 냥이	NNG
+샹틸리	NNG
+샹틸리 냥이	NNG
+샹틸리 티파니	NNG
+샹틸리-티파니	NNG
+샹틸리-티파니 고양이	NNG
+세렝게티	NNG
+셀론	NNG
+셀커크	NNG
+셀커크 냥이	NNG
+셀커크 렉스	NNG
+셀커크 렉스 고양이	NNG
+셀커크렉스	NNG
+소말리	NNG
+소말리 고양이	NNG
+소말리 냥이	NNG
+소말리아	NNG
+소코케	NNG
+숏다리 고양이	NNG
+숏레그	NNG
+수영하는 고양이	NNG
+스노우 슈	NNG
+스노우 슈 냥이	NNG
+스노우슈	NNG
+스노우슈 고양이	NNG
+스코티쉬	NNG
+스코티쉬 폴드	NNG
+스코티쉬 폴드 고양이	NNG
+스코티쉬폴드	NNG
+스코티시	NNG
+스코티시 폴드	NNG
+스코티시 폴드 고양이	NNG
+스코티시폴드	NNG
+스쿠쿰	NNG
+스폴	NNG
+스핑	NNG
+스핑크스	NNG
+스핑크스 고양이	NNG
+스핑크스 냥이	NNG
+시베리아 고양이	NNG
+시베리안	NNG
+시베리안 고양이	NNG
+시베리안 냥이	NNG
+시베리안 숲 고양이	NNG
+실론	NNG
+싱가포라	NNG
+싱가푸라	NNG
+싱가푸라 고양이	NNG
+싱가푸라 냥이	NNG
+싱가푸르	NNG
+아나톨리	NNG
+아나톨리안	NNG
+아라비안	NNG
+아라비안 마우	NNG
+아라비안 마우 고양이	NNG
+아라비안마우	NNG
+아메리칸 밥테일	NNG
+아메리칸 밥테일 고양이	NNG
+아메리칸 쇼트헤어	NNG
+아메리칸 쇼트헤어 고양이	NNG
+아메리칸 숏헤어	NNG
+아메리칸 숏헤어 고양이	NNG
+아메리칸 와이어 헤어	NNG
+아메리칸 와이어헤어	NNG
+아메리칸 와이어헤어 고양이	NNG
+아메리칸 컬	NNG
+아메리칸 컬 고양이	NNG
+아메리칸 컬 캣	NNG
+아메리칸밥테일	NNG
+아메리칸쇼트헤어	NNG
+아메리칸숏헤어	NNG
+아메리칸와이어헤어	NNG
+아메리칸컬	NNG
+아메밥	NNG
+아메밥냥	NNG
+아메숏	NNG
+아메숏냥	NNG
+아메와	NNG
+아메컬	NNG
+아메컬냥	NNG
+아비	NNG
+아비냥	NNG
+아비시니아	NNG
+아비시니안	NNG
+아비시니안 고양이	NNG
+아비시니안 냥이	NNG
+아숏	NNG
+아시안 세미롱헤어	NNG
+아프로디테 냥이	NNG
+에게	NNG
+에게안	NNG
+에게안 고양이	NNG
+에게안 캣	NNG
+엑조틱	NNG
+엑조틱 쇼트헤어	NNG
+엑조틱 쇼트헤어 고양이	NNG
+엑조틱 숏헤어	NNG
+엑조틱 숏헤어 고양이	NNG
+엑조틱쇼트헤어	NNG
+엑조틱숏헤어	NNG
+엘프	NNG
+엘프캣	NNG
+오레곤 렉스	NNG
+오리건 렉스	NNG
+오리엔탈	NNG
+오리엔탈 고양이	NNG
+오리엔탈 롱헤어	NNG
+오리엔탈 쇼트헤어	NNG
+오리엔탈 쇼트헤어 고양이	NNG
+오리엔탈 숏	NNG
+오리엔탈 숏헤어	NNG
+오리엔탈 숏헤어 고양이	NNG
+오리엔탈 캣	NNG
+오리엔탈쇼트헤어	NNG
+오리엔탈숏헤어	NNG
+오스트레일리안	NNG
+오스트레일리안 미스트	NNG
+오스트레일리안 미스트 고양이	NNG
+오스트레일리안미스트	NNG
+오시	NNG
+오시캣	NNG
+오시캣 고양이	NNG
+오시캣 냥이	NNG
+오시켓	NNG
+오호스 아주레스	NNG
+오호스 아즐레스	NNG
+요크 초콜렛	NNG
+요크 초콜릿	NNG
+요크 초콜릿 고양이	NNG
+요크 초콜릿 냥이	NNG
+요크초콜릿	NNG
+우크라이나 레브코이	NNG
+웨어울프 캣	NNG
+유러피안 쇼트헤어	NNG
+유러피언 숏헤어	NNG
+유럽 버마	NNG
+유럽 버마 고양이	NNG
+유럽 버미즈	NNG
+유럽 버미즈 고양이	NNG
+유럽버마	NNG
+유럽버미즈	NNG
+유크라이니안 레브코이	NNG
+이그조틱	NNG
+이집션	NNG
+이집션 마우	NNG
+이집션 마우 고양이	NNG
+이집션마우	NNG
+이집트 고양이	NNG
+이집트 마우	NNG
+이집트 마우 고양이	NNG
+이집트마우	NNG
+일본 밥테일	NNG
+일본 밥테일 고양이	NNG
+일본밥	NNG
+일본밥테일	NNG
+자바	NNG
+자바 고양이	NNG
+자바니스	NNG
+자바니즈	NNG
+자바니즈 캣	NNG
+재패니즈 밥테일	NNG
+재패니즈 밥테일 고양이	NNG
+재패니즈 밥테일 냥이	NNG
+재패니즈밥	NNG
+재패니즈밥테일	NNG
+저먼 렉스	NNG
+접힌 귀 고양이	NNG
+제네타	NNG
+제페니즈 밥테일	NNG
+차우	NNG
+차우시	NNG
+차우시 고양이	NNG
+차우시 냥이	NNG
+차우시 캣	NNG
+차이니즈 리 후아	NNG
+치토	NNG
+치토 고양이	NNG
+치토 냥이	NNG
+카라캣	NNG
+카오 마니	NNG
+카오 마니 고양이	NNG
+카오마니	NNG
+카오마니 냥이	NNG
+카우시	NNG
+캐나디안 헤어리스	NNG
+캘리포니아 스팽글	NNG
+캘리포니아 스팽글 고양이	NNG
+캘리포니아스팽글	NNG
+캘스팽	NNG
+컬러포인트 쇼트헤어	NNG
+컬러포인트 쇼트헤어 고양이	NNG
+컬러포인트 숏헤어	NNG
+컬러포인트 숏헤어 고양이	NNG
+컬러포인트쇼트헤어	NNG
+컬러포인트숏헤어	NNG
+컬쇼	NNG
+코니쉬 렉스	NNG
+코니시	NNG
+코니시 냥이	NNG
+코니시 렉스	NNG
+코니시 렉스 고양이	NNG
+코니시렉스	NNG
+코라트	NNG
+코랏	NNG
+코랏 고양이	NNG
+코리안 쇼트헤어	NNG
+코리안 쇼트헤어 고양이	NNG
+코리안 숏헤어	NNG
+코리안 숏헤어 고양이	NNG
+코리안쇼트헤어	NNG
+코리안숏헤어	NNG
+코숏	NNG
+코숏냥	NNG
+코호나	NNG
+쿠릴 밥테일	NNG
+쿠릴리안	NNG
+쿠릴리안 고양이	NNG
+쿠릴리안 밥테일	NNG
+키프로스	NNG
+키프로스 고양이	NNG
+킨카로	NNG
+킨카로우	NNG
+킴리크	NNG
+킴릭	NNG
+킴릭 고양이	NNG
+킴릭 냥이	NNG
+타이 샴	NNG
+터앙	NNG
+터앙냥	NNG
+터키 반	NNG
+터키 반 고양이	NNG
+터키 앙고라	NNG
+터키 앙고라 고양이	NNG
+터키반	NNG
+터키쉬 반	NNG
+터키쉬 앙고라	NNG
+터키시 반	NNG
+터키시 반 고양이	NNG
+터키시 앙고라	NNG
+터키시 앙고라 고양이	NNG
+터키시반	NNG
+터키시앙고라	NNG
+터키앙고라	NNG
+털 없는 고양이	NNG
+테네시 렉스	NNG
+토이 타이거	NNG
+토이거	NNG
+토이거 고양이	NNG
+톤키니즈	NNG
+톤키니즈 고양이	NNG
+통키니즈	NNG
+티파니	NNG
+티파니 고양이	NNG
+티파니 캣	NNG
+페르시아	NNG
+페르시안	NNG
+페르시안 고양이	NNG
+페르시안 냥이	NNG
+페르시안 친칠라	NNG
+페르시안 클래식	NNG
+폴드	NNG
+폴드냥	NNG
+푸들 고양이	NNG
+피터벌드	NNG
+피터볼드	NNG
+픽시 밥	NNG
+픽시밥	NNG
+픽시밥 고양이	NNG
+하바나	NNG
+하바나 브라운	NNG
+하바나 브라운 고양이	NNG
+하바나브라운	NNG
+하와이안 헤어리스	NNG
+하이랜더	NNG
+하일랜더	NNG
+한국 고양이	NNG
+히말라야 고양이	NNG
+히말라얀	NNG
+히말라얀 고양이	NNG
+히말라얀 냥이	NNG

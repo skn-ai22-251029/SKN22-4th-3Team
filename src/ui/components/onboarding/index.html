@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+    :root {
+      --primary-color: #7b2ff7;
+      --primary-light: #f3ebff;
+      --accent-color: #4A90E2;
+      --bg-card: rgba(255, 255, 255, 0.75);
+      --text-brand: #000000;
+      --text-main: #1a1a1a;
+      --text-muted: #555555;
+      --radius-lg: 24px;
+      --radius-md: 12px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', sans-serif;
+      background: #ffffff !important;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+
+    .onboarding-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero-emoji {
+      font-size: 64px;
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 10px 0;
+      color: var(--text-brand);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .form-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      background: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+
+    select:focus {
+      border-color: #8A2BE2;
+      box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.1);
+    }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 8px 16px;
+      background: #f0f0f0;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .chip.active {
+      background: var(--primary-light);
+      color: var(--primary-color);
+      border-color: rgba(123, 47, 247, 0.2);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(123, 47, 247, 0.3);
+    }
+
+    .submit-btn:hover {
+      background: #7a25c9;
+      transform: translateY(-2px);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="onboarding-container">
+    <div class="hero">
+      <div class="hero-emoji">🎩</div>
+      <h1 class="hero-title">ZIPSA</h1>
+      <p class="hero-subtitle">집사님의 라이프스타일을 알려주시면<br>꼭 맞는 고양이를 매칭해드린다냥!</p>
+    </div>
+
+    <div class="form-card">
+      <div class="input-row">
+        <div class="form-group">
+          <label>🏠 주거 형태</label>
+          <select id="housing">
+            <option value="apartment">아파트</option>
+            <option value="house">주택</option>
+            <option value="studio">원룸</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>🏃 활동량</label>
+          <select id="activity">
+            <option value="low">정적임</option>
+            <option value="medium" selected>보통</option>
+            <option value="high">활동적임</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div class="form-group">
+          <label>📋 경험</label>
+          <select id="experience">
+            <option value="beginner">초보 집사</option>
+            <option value="intermediate">경력 있음</option>
+            <option value="expert">베테랑 집사</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>🤧 알레르기</label>
+          <div class="checkbox-group" onclick="document.getElementById('allergy').click()">
+            <input type="checkbox" id="allergy">
+            <span>고양이 알레르기 있음</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>👥 동거인 (중복 선택 가능)</label>
+        <div class="chips-container" id="companion-chips">
+          <div class="chip" data-value="어린 아이">어린 아이</div>
+          <div class="chip" data-value="강아지">강아지</div>
+          <div class="chip" data-value="혼자">혼자</div>
+          <div class="chip" data-value="가족">가족</div>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submit-btn">🐱 상담 시작하기</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Streamlit Component API ---
+    const Streamlit = {
+      setComponentReady: function () {
+        window.parent.postMessage({ isStreamlitMessage: true, type: "streamlit:componentReady", apiVersion: 1 }, "*");
+      },
+      setFrameHeight: function (height) {
+        window.parent.postMessage({ isStreamlitMessage: true, type: "streamlit:setFrameHeight", height: height }, "*");
+      },
+      setComponentValue: function (value) {
+        window.parent.postMessage({ isStreamlitMessage: true, type: "streamlit:setComponentValue", value: value }, "*");
+      }
+    };
+
+    window.onload = function () {
+      Streamlit.setComponentReady();
+      setTimeout(() => Streamlit.setFrameHeight(document.body.scrollHeight), 100);
+    };
+
+    // Chip logic
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('active');
+      });
+    });
+
+    document.getElementById('submit-btn').addEventListener('click', () => {
+      const companion = Array.from(document.querySelectorAll('.chip.active'))
+        .map(chip => chip.getAttribute('data-value'));
+
+      const data = {
+        housing: document.getElementById('housing').value,
+        activity: document.getElementById('activity').value,
+        experience: document.getElementById('experience').value,
+        allergy: document.getElementById('allergy').checked,
+        companion: companion
+      };
+
+      console.log("Sending data to Streamlit:", data);
+      Streamlit.setComponentValue(data);
+    });
+  </script>
+</body>
+
+</html>

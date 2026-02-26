@@ -1,0 +1,1602 @@
+-	NNG
+Abyssinian	NNG
+Abyssinian Cat	NNG
+Aegean	NNG
+Aegean Cat	NNG
+American Bobtail	NNG
+American Bobtail Cat	NNG
+American Curl	NNG
+American Curl Cat	NNG
+American Shorthair	NNG
+American Shorthair Cat	NNG
+American Wirehair	NNG
+American Wirehair Cat	NNG
+Anatolian	NNG
+Aphrodite's Giant	NNG
+Arabian Mau	NNG
+Asian Semi-longhair	NNG
+Australian Mist	NNG
+Australian Mist Cat	NNG
+Balinese	NNG
+Balinese Cat	NNG
+Bambino	NNG
+Bambino Cat	NNG
+Bengal	NNG
+Bengal Cat	NNG
+Birman	NNG
+Birman Cat	NNG
+Bombay	NNG
+Bombay Cat	NNG
+Brazilian Shorthair	NNG
+British Longhair	NNG
+British Longhair Cat	NNG
+British Shorthair	NNG
+British Shorthair Cat	NNG
+Burmese	NNG
+Burmese Cat	NNG
+Burmilla	NNG
+Burmilla Cat	NNG
+California Spangled	NNG
+California Spangled Cat	NNG
+Canadian Sphynx	NNG
+Caracat	NNG
+Ceylon	NNG
+Chantilly Tiffany	NNG
+Chantilly-Tiffany	NNG
+Chartreux	NNG
+Chartreux Cat	NNG
+Chausie	NNG
+Chausie Cat	NNG
+Cheetoh	NNG
+Cheetoh Cat	NNG
+Colorpoint Shorthair	NNG
+Colorpoint Shorthair Cat	NNG
+Cornish Rex	NNG
+Cornish Rex Cat	NNG
+Cymric	NNG
+Cymric Cat	NNG
+Cyprus	NNG
+Cyprus Cat	NNG
+Desert Lynx	NNG
+Devon Rex	NNG
+Devon Rex Cat	NNG
+Don Hairless	NNG
+Don Sphynx	NNG
+Donskoy	NNG
+Dragon Li	NNG
+Dwelf	NNG
+Egyptian Mau	NNG
+Egyptian Mau Cat	NNG
+Elf	NNG
+European Burmese	NNG
+European Shorthair	NNG
+Exotic Shorthair	NNG
+Exotic Shorthair Cat	NNG
+Genetta	NNG
+German Rex	NNG
+Havana Brown	NNG
+Havana Brown Cat	NNG
+Highlander	NNG
+Himalayan	NNG
+Himalayan Cat	NNG
+Japanese Bobtail	NNG
+Japanese Bobtail Cat	NNG
+Javanese	NNG
+Javanese Cat	NNG
+Khao Manee	NNG
+Khao Manee Cat	NNG
+Kinkalow	NNG
+Kohana	NNG
+Korat	NNG
+Korat Cat	NNG
+Korean Shorthair	NNG
+Korean Shorthair Cat	NNG
+Kurilian Bobtail	NNG
+Kurilian Bobtail Cat	NNG
+LaPerm	NNG
+LaPerm Cat	NNG
+Lambkin	NNG
+Li Hua	NNG
+Li Hua Mao	NNG
+Lykoi	NNG
+Maine Coon	NNG
+Maine Coon Cat	NNG
+Malayan	NNG
+Malayan Cat	NNG
+Manx	NNG
+Manx Cat	NNG
+Mekong Bobtail	NNG
+Minuet	NNG
+Munchkin	NNG
+Munchkin Cat	NNG
+Nebelung	NNG
+Nebelung Cat	NNG
+Norwegian Forest	NNG
+Norwegian Forest Cat	NNG
+Ocicat	NNG
+Ocicat Cat	NNG
+Ojos Azules	NNG
+Oregon Rex	NNG
+Oriental	NNG
+Oriental Cat	NNG
+Oriental Longhair	NNG
+Oriental Shorthair	NNG
+Oriental Shorthair Cat	NNG
+Persian	NNG
+Persian Cat	NNG
+Persian Chinchilla	NNG
+Peterbald	NNG
+Pixie-bob	NNG
+Pixiebob	NNG
+Raas	NNG
+Ragamuffin	NNG
+Ragamuffin Cat	NNG
+Ragdoll	NNG
+Ragdoll Cat	NNG
+Russian Blue	NNG
+Russian Blue Cat	NNG
+Safari	NNG
+Savannah	NNG
+Savannah Cat	NNG
+Scottish Fold	NNG
+Scottish Fold Cat	NNG
+Selkirk Rex	NNG
+Selkirk Rex Cat	NNG
+Serengeti	NNG
+Siamese	NNG
+Siamese Cat	NNG
+Siberian	NNG
+Siberian Cat	NNG
+Siberian Forest Cat	NNG
+Singapura	NNG
+Singapura Cat	NNG
+Skookum	NNG
+Snowshoe	NNG
+Snowshoe Cat	NNG
+Sokoke	NNG
+Somali	NNG
+Somali Cat	NNG
+Sphynx	NNG
+Sphynx Cat	NNG
+Tennessee Rex	NNG
+Tonkinese	NNG
+Tonkinese Cat	NNG
+Toyger	NNG
+Toyger Cat	NNG
+Turkish Angora	NNG
+Turkish Angora Cat	NNG
+Turkish Van	NNG
+Turkish Van Cat	NNG
+Ukrainian Levkoy	NNG
+Wegie	NNG
+York Chocolate	NNG
+York Chocolate Cat	NNG
+가격	NNG
+가구	NNG
+가능	NNG
+가래	NNG
+가방	NNG
+가성비	NNG
+가습기	NNG
+가이드	NNG
+가입	NNG
+가전	NNG
+가정	NNG
+가족	NNG
+가필드	NNG
+가필드 고양이	NNG
+각질	NNG
+간식	NNG
+간직	NNG
+간택	NNG
+갈이	NNG
+감기	NNG
+감시	NNG
+감염	NNG
+감전	NNG
+감정	NNG
+감지	NNG
+갑상선	NNG
+강아지	NNG
+개발	NNG
+거부	NNG
+걱정	NNG
+건강	NNG
+건조	NNG
+건조기	NNG
+검사	NNG
+검은 고양이	NNG
+검진	NNG
+게르만 렉스	NNG
+겨울	NNG
+겨울철	NNG
+견과	NNG
+결막염	NNG
+결석	NNG
+결정	NNG
+결핍증	NNG
+경계심	NNG
+경련	NNG
+경향	NNG
+계단	NNG
+고기	NNG
+고대	NNG
+고등어	NNG
+고려	NNG
+고무	NNG
+고민	NNG
+고양	NNG
+고양이	NNG
+고정	NNG
+고향	NNG
+골든	NNG
+골절	NNG
+곰팡이	NNG
+공간	NNG
+공감	NNG
+공격	NNG
+공기	NNG
+공포	NNG
+과일	NNG
+과정	NNG
+과학	NNG
+관계	NNG
+관련	NNG
+관리	NNG
+관리법	NNG
+관심	NNG
+관절	NNG
+관찰	NNG
+광견병	NNG
+교감	NNG
+교류	NNG
+교배	NNG
+교육	NNG
+교체	NNG
+구급	NNG
+구내염	NNG
+구매	NNG
+구별	NNG
+구분	NNG
+구분법	NNG
+구성	NNG
+구성원	NNG
+구역	NNG
+구조	NNG
+구토	NNG
+귀부인	NNG
+귀신	NNG
+그루밍	NNG
+그릇	NNG
+극복	NNG
+극소	NNG
+급수	NNG
+급식	NNG
+급여	NNG
+급체	NNG
+기네스북	NNG
+기념일	NNG
+기능	NNG
+기둥	NNG
+기력	NNG
+기본	NNG
+기분	NNG
+기생충	NNG
+기저귀	NNG
+기준	NNG
+기지개	NNG
+기초	NNG
+기침	NNG
+기호	NNG
+기후	NNG
+길고양이	NNG
+길이	NNG
+깔끔	NNG
+깻잎	NNG
+껍질	NNG
+꼬드름	NNG
+꼬리	NNG
+나너스 렉스	NNG
+나이	NNG
+나이트	NNG
+나폴레옹	NNG
+낚시	NNG
+날씨	NNG
+남자	NNG
+내성	NNG
+냄새	NNG
+냥줍	NNG
+네바	NNG
+네벨렁	NNG
+네벨룽	NNG
+네벨룽 고양이	NNG
+네벨룽 냥이	NNG
+네벨룽캣	NNG
+네블라이저	NNG
+네코	NNG
+넥카라	NNG
+노르웨이	NNG
+노르웨이 숲	NNG
+노르웨이 숲 고양이	NNG
+노르웨이숲	NNG
+노르웨이지안 포레스트	NNG
+노르웨이지안 포레스트 캣	NNG
+노숲	NNG
+노화	NNG
+놀숲	NNG
+놀숲 고양이	NNG
+놀숲냥	NNG
+놀이	NNG
+높이	NNG
+눈곱	NNG
+눈꺼풀	NNG
+눈꼽	NNG
+눈물	NNG
+눈치	NNG
+느낌	NNG
+늑대	NNG
+늑대 고양이	NNG
+능력	NNG
+니벨룽	NNG
+니즈	NNG
+다리	NNG
+다양	NNG
+다이슨	NNG
+다이아몬드 눈 고양이	NNG
+다이아몬드 아이	NNG
+다이어트	NNG
+다지증	NNG
+닥스	NNG
+단계	NNG
+단백질	NNG
+단순	NNG
+단점	NNG
+단축	NNG
+단호박	NNG
+닭고기	NNG
+닭발	NNG
+담요	NNG
+대답	NNG
+대리석	NNG
+대변	NNG
+대비	NNG
+대상	NNG
+대소변	NNG
+대신	NNG
+대장	NNG
+대책	NNG
+대처	NNG
+대처법	NNG
+대표	NNG
+대형	NNG
+대화	NNG
+댕냥이	NNG
+더위	NNG
+덕분	NNG
+덕후	NNG
+덩치	NNG
+데본	NNG
+데본 렉스	NNG
+데본 렉스 고양이	NNG
+데본 렉스 캣	NNG
+데본렉스	NNG
+데본렉스 냥이	NNG
+데저트 링스	NNG
+데저트린스	NNG
+도둑고양이	NNG
+도어	NNG
+도움	NNG
+도파민	NNG
+독립	NNG
+독특	NNG
+돈 스코이	NNG
+돈 스핑크스	NNG
+돈스코이	NNG
+돈스코이 고양이	NNG
+돈스코이 냥이	NNG
+돈스코이 스핑크스	NNG
+동공	NNG
+동물	NNG
+동반자	NNG
+동장	NNG
+두부	NNG
+드라이	NNG
+드래곤	NNG
+드래곤 리	NNG
+드래곤 리 고양이	NNG
+드래곤리	NNG
+드래곤리 냥이	NNG
+드웰프	NNG
+드웰프 캣 (먼치킨+스핑크스+아메리칸컬 교배종)	NNG
+디자인	NNG
+디퓨저	NNG
+딱지	NNG
+딸기	NNG
+딸꾹질	NNG
+뚜껑	NNG
+뚱냥	NNG
+뚱냥이	NNG
+라 펌	NNG
+라가머핀	NNG
+라가머핀 고양이	NNG
+라가머핀 냥이	NNG
+라스 캣	NNG
+라아스	NNG
+라이코이	NNG
+라퍼	NNG
+라펌	NNG
+라펌 고양이	NNG
+라펌 냥이	NNG
+래가머핀	NNG
+래거머핀	NNG
+래그돌	NNG
+래그돌 고양이	NNG
+랙돌	NNG
+랙돌 고양이	NNG
+랙돌냥	NNG
+램킨	NNG
+램킨 드워프	NNG
+러블	NNG
+러블 고양이	NNG
+러블(줄임말)	NNG
+러블냥	NNG
+러시아	NNG
+러시아 블루	NNG
+러시안	NNG
+러시안 블루	NNG
+러시안 블루 고양이	NNG
+러시안블루	NNG
+레깅스	NNG
+레시피	NNG
+레오파드 고양이	NNG
+레트로	NNG
+렉돌	NNG
+렉돌 고양이	NNG
+렉스	NNG
+로드	NNG
+로봇	NNG
+로스	NNG
+롱헤어 맹크스	NNG
+리 마오	NNG
+리 후아	NNG
+리듬	NNG
+리스트	NNG
+리코이	NNG
+리트리버	NNG
+리화	NNG
+리화묘	NNG
+링웜	NNG
+링크	NNG
+마네키	NNG
+마따따비	NNG
+마사지	NNG
+마스커레이드	NNG
+마우	NNG
+마운	NNG
+마음	NNG
+마음가짐	NNG
+마이	NNG
+마취	NNG
+마킹	NNG
+만세	NNG
+만점	NNG
+만족도	NNG
+말기	NNG
+말레이	NNG
+말레이안	NNG
+말레이안 고양이	NNG
+말레이안 냥이	NNG
+말이	NNG
+말투	NNG
+맞이	NNG
+매력	NNG
+매트	NNG
+맨스	NNG
+맨크스	NNG
+맹크스	NNG
+맹크스 고양이	NNG
+맹크스 냥이	NNG
+머리	NNG
+먹이	NNG
+먼지	NNG
+먼치킨	NNG
+먼치킨 고양이	NNG
+먼치킨 냥이	NNG
+먼치킨 롱레그	NNG
+먼치킨 숏레그	NNG
+먼치킨 캣	NNG
+메인	NNG
+메인 쿤	NNG
+메인 쿤 고양이	NNG
+메인 쿤 캣	NNG
+메인쿤	NNG
+메인쿤 냥이	NNG
+메인쿤 캣	NNG
+메콩 밥테일	NNG
+메콩밥테일	NNG
+면역력	NNG
+멸치	NNG
+명절	NNG
+모기	NNG
+모기향	NNG
+모두	NNG
+모래	NNG
+모습	NNG
+모양	NNG
+모자	NNG
+모종	NNG
+목걸이	NNG
+목덜미	NNG
+목도리	NNG
+목소리	NNG
+목욕	NNG
+무늬	NNG
+무릎	NNG
+무지개	NNG
+무혈	NNG
+문제	NNG
+물건	NNG
+물그릇	NNG
+물질	NNG
+물티슈	NNG
+물품	NNG
+미관	NNG
+미국	NNG
+미뉴에트	NNG
+미니	NNG
+미소	NNG
+미스트	NNG
+미안	NNG
+미역	NNG
+미용	NNG
+밀크	NNG
+바닥	NNG
+바리	NNG
+바이러스	NNG
+바이킹	NNG
+바퀴벌레	NNG
+박스	NNG
+반려	NNG
+반려동물	NNG
+반복	NNG
+반성	NNG
+반응	NNG
+발가락	NNG
+발견	NNG
+발리	NNG
+발리네즈	NNG
+발리네즈 고양이	NNG
+발리네즈 냥이	NNG
+발리니스	NNG
+발리니즈	NNG
+발바닥	NNG
+발암	NNG
+발정기	NNG
+발치	NNG
+발톱	NNG
+밤비	NNG
+밤비노	NNG
+밤비노 고양이	NNG
+밤비노 냥이	NNG
+밤비노 캣	NNG
+밥그릇	NNG
+방광염	NNG
+방귀	NNG
+방문	NNG
+방법	NNG
+방석	NNG
+방울	NNG
+방지	NNG
+배꼽	NNG
+배변	NNG
+배설	NNG
+배출	NNG
+백내장	NNG
+백신	NNG
+뱅갈	NNG
+뱅갈 고양이	NNG
+뱅갈냥	NNG
+버릇	NNG
+버마	NNG
+버마 고양이	NNG
+버만	NNG
+버만 고양이	NNG
+버만 캣	NNG
+버먼	NNG
+버먼 고양이	NNG
+버먼 냥이	NNG
+버미라	NNG
+버미즈	NNG
+버미즈 고양이	NNG
+버미즈 냥이	NNG
+버미즈 성묘	NNG
+버밀라	NNG
+버밀라 고양이	NNG
+버밀라 냥이	NNG
+버전	NNG
+벌레	NNG
+베란다	NNG
+벤토	NNG
+벵갈	NNG
+벵갈 고양이	NNG
+벵갈냥	NNG
+벽지	NNG
+변기	NNG
+변비	NNG
+변화	NNG
+별명	NNG
+병원	NNG
+보양식	NNG
+보은	NNG
+보충	NNG
+보험	NNG
+보호	NNG
+보호소	NNG
+보호자	NNG
+복막염	NNG
+복수	NNG
+복용	NNG
+복층	NNG
+본능	NNG
+봄바	NNG
+봄바이	NNG
+봄바이 고양이	NNG
+봄배이	NNG
+봄베이	NNG
+봄베이 고양이	NNG
+봄베이 냥이	NNG
+봄베이 캣	NNG
+봉제인형 고양이	NNG
+봉지	NNG
+부담	NNG
+부위	NNG
+부진	NNG
+북어트릿	NNG
+분리	NNG
+분비	NNG
+분석	NNG
+분위기	NNG
+분유	NNG
+불량	NNG
+불안	NNG
+브라질 숏헤어	NNG
+브라질리안 쇼트헤어	NNG
+브라질리언 숏헤어	NNG
+브랜드	NNG
+브러쉬	NNG
+브로콜리	NNG
+브리	NNG
+브리티쉬	NNG
+브리티쉬 롱	NNG
+브리티쉬 롱헤어	NNG
+브리티쉬 롱헤어 고양이	NNG
+브리티쉬 쇼트헤어	NNG
+브리티쉬 쇼트헤어 고양이	NNG
+브리티쉬 숏헤어	NNG
+브리티쉬롱	NNG
+브리티쉬롱헤어	NNG
+브리티쉬쇼트헤어	NNG
+브리티쉬숏	NNG
+브리티쉬숏헤어	NNG
+브리티시	NNG
+브리티시 롱	NNG
+브리티시 롱헤어	NNG
+브리티시 롱헤어 고양이	NNG
+브리티시 쇼트헤어	NNG
+브리티시 쇼트헤어 고양이	NNG
+브리티시 숏헤어	NNG
+브리티시롱	NNG
+브리티시롱헤어	NNG
+브리티시쇼트헤어	NNG
+브리티시숏	NNG
+브리티시숏헤어	NNG
+브숏	NNG
+브숏냥	NNG
+블라인드	NNG
+블랙	NNG
+블루	NNG
+블루베리	NNG
+비결	NNG
+비교	NNG
+비니	NNG
+비닐	NNG
+비대	NNG
+비듬	NNG
+비만	NNG
+비밀	NNG
+비스	NNG
+비염	NNG
+비용	NNG
+비행기	NNG
+빈혈	NNG
+빨래	NNG
+뽀송	NNG
+사건	NNG
+사고	NNG
+사교	NNG
+사냥	NNG
+사람	NNG
+사랑	NNG
+사료	NNG
+사막	NNG
+사막 삵	NNG
+사망	NNG
+사바나	NNG
+사바나 고양이	NNG
+사바나 냥이	NNG
+사바나 캣	NNG
+사바나캣	NNG
+사상	NNG
+사시	NNG
+사실	NNG
+사용	NNG
+사이드	NNG
+사이즈	NNG
+사진	NNG
+사파리	NNG
+사파리 캣	NNG
+사항	NNG
+사회	NNG
+산책	NNG
+산패	NNG
+삼색	NNG
+상담	NNG
+상승	NNG
+상식	NNG
+상자	NNG
+상징	NNG
+상처	NNG
+상추	NNG
+상태	NNG
+상품	NNG
+상호	NNG
+상황	NNG
+새끼	NNG
+새우	NNG
+색깔	NNG
+색맹	NNG
+색상	NNG
+생각	NNG
+생리	NNG
+생명	NNG
+생선	NNG
+생식	NNG
+생일	NNG
+생활	NNG
+샤르트뢰	NNG
+샤르트뢰 고양이	NNG
+샤미즈	NNG
+샤미즈 캣	NNG
+샤트룩스	NNG
+샤트룩스 고양이	NNG
+샴	NNG
+샴 고양이	NNG
+샴 냥이	NNG
+샴푸	NNG
+샹틸리	NNG
+샹틸리 냥이	NNG
+샹틸리 티파니	NNG
+샹틸리-티파니	NNG
+샹틸리-티파니 고양이	NNG
+서열	NNG
+선글라스	NNG
+선물	NNG
+선택	NNG
+선풍기	NNG
+선호	NNG
+설사	NNG
+설치	NNG
+섭취	NNG
+성격	NNG
+성공	NNG
+성묘	NNG
+성분	NNG
+성장	NNG
+성향	NNG
+세계	NNG
+세균	NNG
+세렝게티	NNG
+세상	NNG
+세정제	NNG
+세탁기	NNG
+세포	NNG
+셀론	NNG
+셀커크	NNG
+셀커크 냥이	NNG
+셀커크 렉스	NNG
+셀커크 렉스 고양이	NNG
+셀커크렉스	NNG
+셀프	NNG
+소개	NNG
+소량	NNG
+소리	NNG
+소말리	NNG
+소말리 고양이	NNG
+소말리 냥이	NNG
+소말리아	NNG
+소변	NNG
+소시지	NNG
+소음	NNG
+소재	NNG
+소코케	NNG
+소통	NNG
+소파	NNG
+소품	NNG
+소화	NNG
+손발	NNG
+손상	NNG
+솜방망이	NNG
+송곳니	NNG
+쇼트	NNG
+숏다리 고양이	NNG
+숏레그	NNG
+수돗물	NNG
+수량	NNG
+수명	NNG
+수반	NNG
+수분	NNG
+수세미	NNG
+수술	NNG
+수염	NNG
+수영	NNG
+수영하는 고양이	NNG
+수의사	NNG
+수제	NNG
+수직	NNG
+수칙	NNG
+수컷	NNG
+순간	NNG
+순백색	NNG
+순위	NNG
+숭배	NNG
+스노우	NNG
+스노우 슈	NNG
+스노우 슈 냥이	NNG
+스노우슈	NNG
+스노우슈 고양이	NNG
+스카프	NNG
+스케일링	NNG
+스코티	NNG
+스코티쉬	NNG
+스코티쉬 폴드	NNG
+스코티쉬 폴드 고양이	NNG
+스코티쉬폴드	NNG
+스코티시	NNG
+스코티시 폴드	NNG
+스코티시 폴드 고양이	NNG
+스코티시폴드	NNG
+스쿠쿰	NNG
+스크래	NNG
+스크래쳐	NNG
+스크래칭	NNG
+스키	NNG
+스킨	NNG
+스텝	NNG
+스트레스	NNG
+스트레이트	NNG
+스팽글	NNG
+스폴	NNG
+스프	NNG
+스핑	NNG
+스핑크스	NNG
+스핑크스 고양이	NNG
+스핑크스 냥이	NNG
+슬리커	NNG
+슬리퍼	NNG
+습관	NNG
+습도	NNG
+습식	NNG
+시간	NNG
+시기	NNG
+시베리아	NNG
+시베리아 고양이	NNG
+시베리안	NNG
+시베리안 고양이	NNG
+시베리안 냥이	NNG
+시베리안 숲 고양이	NNG
+시야	NNG
+시작	NNG
+식기	NNG
+식물	NNG
+식사	NNG
+식욕	NNG
+식재료	NNG
+식탁	NNG
+신경	NNG
+신발	NNG
+신부전	NNG
+신사	NNG
+신상	NNG
+신종	NNG
+신중	NNG
+신체	NNG
+신호	NNG
+실내	NNG
+실론	NNG
+실명	NNG
+실수	NNG
+실제	NNG
+실종	NNG
+실패	NNG
+심근	NNG
+심리	NNG
+심박수	NNG
+심부전	NNG
+심신	NNG
+심장병	NNG
+심장사상충	NNG
+심플	NNG
+싱가포라	NNG
+싱가푸라	NNG
+싱가푸라 고양이	NNG
+싱가푸라 냥이	NNG
+싱가푸르	NNG
+싸움	NNG
+아기	NNG
+아깽	NNG
+아나톨리	NNG
+아나톨리안	NNG
+아라비안	NNG
+아라비안 마우	NNG
+아라비안 마우 고양이	NNG
+아라비안마우	NNG
+아메리칸	NNG
+아메리칸 밥테일	NNG
+아메리칸 밥테일 고양이	NNG
+아메리칸 쇼트헤어	NNG
+아메리칸 쇼트헤어 고양이	NNG
+아메리칸 숏헤어	NNG
+아메리칸 숏헤어 고양이	NNG
+아메리칸 와이어 헤어	NNG
+아메리칸 와이어헤어	NNG
+아메리칸 와이어헤어 고양이	NNG
+아메리칸 컬	NNG
+아메리칸 컬 고양이	NNG
+아메리칸 컬 캣	NNG
+아메리칸밥테일	NNG
+아메리칸쇼트헤어	NNG
+아메리칸숏헤어	NNG
+아메리칸와이어헤어	NNG
+아메리칸컬	NNG
+아메밥	NNG
+아메밥냥	NNG
+아메숏	NNG
+아메숏냥	NNG
+아메와	NNG
+아메컬	NNG
+아메컬냥	NNG
+아비	NNG
+아비냥	NNG
+아비시니아	NNG
+아비시니안	NNG
+아비시니안 고양이	NNG
+아비시니안 냥이	NNG
+아숏	NNG
+아시안 세미롱헤어	NNG
+아이	NNG
+아이라인	NNG
+아이템	NNG
+아치	NNG
+아프로디테 냥이	NNG
+악세서리	NNG
+안락사	NNG
+안심	NNG
+안약	NNG
+안전	NNG
+안정	NNG
+알러지	NNG
+알레르기	NNG
+알비노	NNG
+암수	NNG
+앙고라	NNG
+앞니	NNG
+앞발	NNG
+애교	NNG
+애완동물	NNG
+애정	NNG
+애착	NNG
+액체	NNG
+야생	NNG
+양말	NNG
+양치	NNG
+어깨	NNG
+어린이	NNG
+어항	NNG
+얼굴	NNG
+얼룩	NNG
+엉덩이	NNG
+에게	NNG
+에게안	NNG
+에게안 고양이	NNG
+에게안 캣	NNG
+에너자이저	NNG
+에너지	NNG
+엑조틱	NNG
+엑조틱 쇼트헤어	NNG
+엑조틱 쇼트헤어 고양이	NNG
+엑조틱 숏헤어	NNG
+엑조틱 숏헤어 고양이	NNG
+엑조틱쇼트헤어	NNG
+엑조틱숏헤어	NNG
+엘라	NNG
+엘프	NNG
+엘프캣	NNG
+여드름	NNG
+여름	NNG
+여름철	NNG
+여행	NNG
+역사	NNG
+역할	NNG
+연고	NNG
+연어	NNG
+염증	NNG
+영국	NNG
+영상	NNG
+영양사	NNG
+영양제	NNG
+영역	NNG
+영향	NNG
+예방	NNG
+예방법	NNG
+오드	NNG
+오레곤 렉스	NNG
+오리	NNG
+오리건 렉스	NNG
+오리엔탈	NNG
+오리엔탈 고양이	NNG
+오리엔탈 롱헤어	NNG
+오리엔탈 쇼트헤어	NNG
+오리엔탈 쇼트헤어 고양이	NNG
+오리엔탈 숏	NNG
+오리엔탈 숏헤어	NNG
+오리엔탈 숏헤어 고양이	NNG
+오리엔탈 캣	NNG
+오리엔탈쇼트헤어	NNG
+오리엔탈숏헤어	NNG
+오메가	NNG
+오스트레일리아	NNG
+오스트레일리안	NNG
+오스트레일리안 미스트	NNG
+오스트레일리안 미스트 고양이	NNG
+오스트레일리안미스트	NNG
+오시	NNG
+오시캣	NNG
+오시캣 고양이	NNG
+오시캣 냥이	NNG
+오시켓	NNG
+오줌	NNG
+오징어	NNG
+오해	NNG
+오호스 아주레스	NNG
+오호스 아즐레스	NNG
+온도	NNG
+와이어	NNG
+완벽	NNG
+완성	NNG
+완치	NNG
+외국	NNG
+외로움	NNG
+외모	NNG
+외출	NNG
+요거트	NNG
+요구	NNG
+요로	NNG
+요크	NNG
+요크 초콜렛	NNG
+요크 초콜릿	NNG
+요크 초콜릿 고양이	NNG
+요크 초콜릿 냥이	NNG
+요크초콜릿	NNG
+욕조	NNG
+용도	NNG
+용품	NNG
+우울	NNG
+우울증	NNG
+우유	NNG
+우크라이나 레브코이	NNG
+운동	NNG
+울음소리	NNG
+울타리	NNG
+웃음	NNG
+워크	NNG
+원룸	NNG
+원리	NNG
+원목	NNG
+원산지	NNG
+원인	NNG
+원칙	NNG
+원형	NNG
+원활	NNG
+웨어울프 캣	NNG
+위장관	NNG
+위치	NNG
+위험	NNG
+윙크	NNG
+유기	NNG
+유대감	NNG
+유도	NNG
+유래	NNG
+유러피안 쇼트헤어	NNG
+유러피언 숏헤어	NNG
+유럽	NNG
+유럽 버마	NNG
+유럽 버마 고양이	NNG
+유럽 버미즈	NNG
+유럽 버미즈 고양이	NNG
+유럽버마	NNG
+유럽버미즈	NNG
+유모차	NNG
+유산균	NNG
+유선종양	NNG
+유용	NNG
+유의	NNG
+유전병	NNG
+유전자	NNG
+유지	NNG
+유치	NNG
+유크라이니안 레브코이	NNG
+유형	NNG
+육아	NNG
+육회	NNG
+음수	NNG
+음식	NNG
+음악	NNG
+응고	NNG
+응급	NNG
+의미	NNG
+의사	NNG
+의심	NNG
+의외	NNG
+의존	NNG
+이그조틱	NNG
+이뇨	NNG
+이동	NNG
+이름	NNG
+이물질	NNG
+이불	NNG
+이빨	NNG
+이사	NNG
+이상	NNG
+이야기	NNG
+이유	NNG
+이유식	NNG
+이집션	NNG
+이집션 마우	NNG
+이집션 마우 고양이	NNG
+이집션마우	NNG
+이집트	NNG
+이집트 고양이	NNG
+이집트 마우	NNG
+이집트 마우 고양이	NNG
+이집트마우	NNG
+이하	NNG
+이해	NNG
+인공	NNG
+인기	NNG
+인덕션	NNG
+인사	NNG
+인스	NNG
+인식표	NNG
+인증	NNG
+인테리어	NNG
+인형	NNG
+일본	NNG
+일본 밥테일	NNG
+일본 밥테일 고양이	NNG
+일본밥	NNG
+일본밥테일	NNG
+일상	NNG
+임시	NNG
+임신부	NNG
+입맛	NNG
+입매	NNG
+입술	NNG
+입양	NNG
+입자	NNG
+잇몸	NNG
+자국	NNG
+자극	NNG
+자동	NNG
+자랑	NNG
+자바	NNG
+자바 고양이	NNG
+자바니스	NNG
+자바니즈	NNG
+자바니즈 캣	NNG
+자세	NNG
+자신	NNG
+자연	NNG
+자연식	NNG
+자전거	NNG
+작용	NNG
+잠꼬대	NNG
+잠자리	NNG
+장난	NNG
+장난감	NNG
+장단점	NNG
+장모종	NNG
+장소	NNG
+장염	NNG
+장점	NNG
+장판	NNG
+장폐색	NNG
+재난	NNG
+재발	NNG
+재패니즈	NNG
+재패니즈 밥테일	NNG
+재패니즈 밥테일 고양이	NNG
+재패니즈 밥테일 냥이	NNG
+재패니즈밥	NNG
+재패니즈밥테일	NNG
+저먼 렉스	NNG
+저온	NNG
+적극	NNG
+적응	NNG
+적응력	NNG
+적정	NNG
+적합	NNG
+전기	NNG
+전선	NNG
+전염	NNG
+전염병	NNG
+전용	NNG
+전체	NNG
+전환	NNG
+절차	NNG
+점프	NNG
+접종	NNG
+접힌 귀 고양이	NNG
+정도	NNG
+정리	NNG
+정말	NNG
+정밀	NNG
+정상	NNG
+정수기	NNG
+정전기	NNG
+젖꼭지	NNG
+제거	NNG
+제네타	NNG
+제맛	NNG
+제트	NNG
+제페니즈 밥테일	NNG
+제품	NNG
+조금	NNG
+조기	NNG
+조림	NNG
+조상	NNG
+조성	NNG
+조심	NNG
+존중	NNG
+종류	NNG
+주기	NNG
+주변	NNG
+주요	NNG
+주의	NNG
+주인	NNG
+죽음	NNG
+준비	NNG
+준비물	NNG
+중독	NNG
+중문	NNG
+중성	NNG
+중시	NNG
+중요	NNG
+증상	NNG
+증후군	NNG
+지능	NNG
+지랄	NNG
+지방간	NNG
+지식	NNG
+직결	NNG
+직원	NNG
+진단	NNG
+진드기	NNG
+진실	NNG
+진정	NNG
+질문	NNG
+질병	NNG
+질환	NNG
+집사	NNG
+집안	NNG
+징후	NNG
+차단	NNG
+차우	NNG
+차우시	NNG
+차우시 고양이	NNG
+차우시 냥이	NNG
+차우시 캣	NNG
+차이	NNG
+차이니즈 리 후아	NNG
+착용	NNG
+참외	NNG
+창문	NNG
+채터링	NNG
+처음	NNG
+처치법	NNG
+천적	NNG
+첫날	NNG
+청결	NNG
+청력	NNG
+청소	NNG
+청소기	NNG
+청정기	NNG
+체리	NNG
+체셔 고양이	NNG
+체온	NNG
+체중	NNG
+체중계	NNG
+체크	NNG
+체형	NNG
+초기	NNG
+초보	NNG
+초콜릿	NNG
+최고	NNG
+최대	NNG
+추석	NNG
+추억	NNG
+추천	NNG
+충성	NNG
+충치	NNG
+충혈	NNG
+췌장염	NNG
+취약	NNG
+취향	NNG
+츄르	NNG
+측정	NNG
+치과	NNG
+치료	NNG
+치료법	NNG
+치사	NNG
+치아	NNG
+치약	NNG
+치즈	NNG
+치킨	NNG
+치토	NNG
+치토 고양이	NNG
+치토 냥이	NNG
+친칠라	NNG
+침대	NNG
+칫솔	NNG
+카라칼	NNG
+카라캣	NNG
+카사바	NNG
+카오	NNG
+카오 마니	NNG
+카오 마니 고양이	NNG
+카오마니	NNG
+카오마니 냥이	NNG
+카오스	NNG
+카우시	NNG
+캐나디안 헤어리스	NNG
+캐릭터	NNG
+캘리포니아	NNG
+캘리포니아 스팽글	NNG
+캘리포니아 스팽글 고양이	NNG
+캘리포니아스팽글	NNG
+캘스팽	NNG
+캠핑	NNG
+캣닢	NNG
+캣워커	NNG
+캣타워	NNG
+커크	NNG
+커튼	NNG
+커플	NNG
+컬러	NNG
+컬러포인트 쇼트헤어	NNG
+컬러포인트 쇼트헤어 고양이	NNG
+컬러포인트 숏헤어	NNG
+컬러포인트 숏헤어 고양이	NNG
+컬러포인트쇼트헤어	NNG
+컬러포인트숏헤어	NNG
+컬쇼	NNG
+케이지	NNG
+케이크	NNG
+케이프	NNG
+코너	NNG
+코니쉬 렉스	NNG
+코니시	NNG
+코니시 냥이	NNG
+코니시 렉스	NNG
+코니시 렉스 고양이	NNG
+코니시렉스	NNG
+코라트	NNG
+코랏	NNG
+코랏 고양이	NNG
+코리안	NNG
+코리안 쇼트헤어	NNG
+코리안 쇼트헤어 고양이	NNG
+코리안 숏헤어	NNG
+코리안 숏헤어 고양이	NNG
+코리안쇼트헤어	NNG
+코리안숏헤어	NNG
+코숏	NNG
+코숏냥	NNG
+코호나	NNG
+콧등	NNG
+콧물	NNG
+쿠릴	NNG
+쿠릴 밥테일	NNG
+쿠릴리안	NNG
+쿠릴리안 고양이	NNG
+쿠릴리안 밥테일	NNG
+쿠션	NNG
+쿠키	NNG
+크기	NNG
+크리스	NNG
+큰일	NNG
+클래식	NNG
+클립놉시스	NNG
+키프로스	NNG
+키프로스 고양이	NNG
+킨카로	NNG
+킨카로우	NNG
+킬트	NNG
+킴리크	NNG
+킴릭	NNG
+킴릭 고양이	NNG
+킴릭 냥이	NNG
+타우린	NNG
+타워	NNG
+타이 샴	NNG
+탈모	NNG
+탈장	NNG
+탈취	NNG
+탈취제	NNG
+탑승	NNG
+태국	NNG
+터널	NNG
+터앙	NNG
+터앙냥	NNG
+터키	NNG
+터키 반	NNG
+터키 반 고양이	NNG
+터키 앙고라	NNG
+터키 앙고라 고양이	NNG
+터키반	NNG
+터키쉬	NNG
+터키쉬 반	NNG
+터키쉬 앙고라	NNG
+터키시 반	NNG
+터키시 반 고양이	NNG
+터키시 앙고라	NNG
+터키시 앙고라 고양이	NNG
+터키시반	NNG
+터키시앙고라	NNG
+터키앙고라	NNG
+턱드름	NNG
+턱시도	NNG
+털 없는 고양이	NNG
+털이	NNG
+테네시 렉스	NNG
+테스트	NNG
+텐트	NNG
+토이	NNG
+토이 타이거	NNG
+토이거	NNG
+토이거 고양이	NNG
+톤키니즈	NNG
+톤키니즈 고양이	NNG
+통증	NNG
+통키니즈	NNG
+트릿	NNG
+특별	NNG
+특성	NNG
+특징	NNG
+티파니	NNG
+티파니 고양이	NNG
+티파니 캣	NNG
+파라오	NNG
+파우더	NNG
+파우치	NNG
+파티	NNG
+패턴	NNG
+퍼즐	NNG
+페르시아	NNG
+페르시안	NNG
+페르시안 고양이	NNG
+페르시안 냥이	NNG
+페르시안 친칠라	NNG
+페르시안 클래식	NNG
+페어	NNG
+펜스	NNG
+편리	NNG
+편식	NNG
+편안	NNG
+평생	NNG
+평소	NNG
+평판	NNG
+폐렴	NNG
+포기	NNG
+포도막	NNG
+포인트	NNG
+포장지	NNG
+포크	NNG
+폴드	NNG
+폴드냥	NNG
+표정	NNG
+표현	NNG
+푸들 고양이	NNG
+품종	NNG
+프리미엄	NNG
+피부	NNG
+피부병	NNG
+피스	NNG
+피자	NNG
+피터	NNG
+피터벌드	NNG
+피터볼드	NNG
+픽시	NNG
+픽시 밥	NNG
+픽시밥	NNG
+픽시밥 고양이	NNG
+필수	NNG
+필수품	NNG
+필요	NNG
+하네스	NNG
+하루	NNG
+하바나	NNG
+하바나 브라운	NNG
+하바나 브라운 고양이	NNG
+하바나브라운	NNG
+하와이안 헤어리스	NNG
+하우스	NNG
+하이랜더	NNG
+하일랜더	NNG
+한국	NNG
+한국 고양이	NNG
+한복	NNG
+한쪽	NNG
+합사	NNG
+항목	NNG
+항문	NNG
+항생제	NNG
+해결	NNG
+해먹	NNG
+해소	NNG
+행동	NNG
+행복	NNG
+행사	NNG
+행운	NNG
+헌신	NNG
+헤드	NNG
+헤어	NNG
+혁명	NNG
+현관문	NNG
+혈액형	NNG
+형성	NNG
+혜택	NNG
+호기심	NNG
+호랑이	NNG
+호텔	NNG
+호흡	NNG
+호흡기	NNG
+혼자	NNG
+화상	NNG
+화이트	NNG
+화장실	NNG
+확인	NNG
+환경	NNG
+환기	NNG
+활동	NNG
+활동량	NNG
+활용	NNG
+황태	NNG
+회색	NNG
+횟수	NNG
+효과	NNG
+후각	NNG
+후기	NNG
+후드	NNG
+후회	NNG
+훈련	NNG
+훈육	NNG
+흑백	NNG
+흥미	NNG
+흥분	NNG
+희귀	NNG
+희귀종	NNG
+히말라야	NNG
+히말라야 고양이	NNG
+히말라얀	NNG
+히말라얀 고양이	NNG
+히말라얀 냥이	NNG

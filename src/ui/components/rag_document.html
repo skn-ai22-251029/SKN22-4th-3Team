@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    body {
+      font-family: 'Pretendard', sans-serif;
+      margin: 0;
+      padding: 10px;
+      background: transparent;
+    }
+
+    .rag-container {
+      background: #fdfdfd;
+      border: 1px dashed #ddd;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .rag-header {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #666;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .rag-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rag-item {
+      background: white;
+      border: 1px solid #f2f2f2;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .rag-item[href]:hover {
+      border-color: #d0e3ff;
+      background: #f9fbff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .rag-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .subtitle {
+      font-size: 9px;
+      color: #aaa;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .source-tag {
+      font-size: 10px;
+      color: #4A90E2;
+      background: #f0f7ff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .link-icon {
+      font-size: 11px;
+      color: #ccc;
+      margin-left: 8px;
+    }
+
+    .rag-item:hover .link-icon {
+      color: #4A90E2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rag-container">
+    <div class="rag-header">
+      <span>📚</span> 답변에 참고한 자료 출처
+    </div>
+    <div class="rag-list">
+      {% for doc in docs %}
+      <a class="rag-item" {% if doc.url %}href="{{ doc.url }}" target="_blank" {% endif %}>
+        <div class="rag-info">
+          <div class="title-row">
+            <span class="title">{{ doc.title }}</span>
+            {% if doc.subtitle %}
+            <span class="subtitle">{{ doc.subtitle }}</span>
+            {% endif %}
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span class="source-tag">@{{ doc.source }}</span>
+          </div>
+        </div>
+        {% if doc.url %}
+        <span class="link-icon">↗</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      margin: 0;
+      padding: 20px 0;
+      background-color: transparent;
+    }
+
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    /* Card Container */
+    .cat-card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      border: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Image Section */
+    .card-image {
+      height: 200px;
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .cat-card:hover .card-image img {
+      transform: scale(1.05);
+    }
+
+    /* Content Section */
+    .card-content {
+      padding: 24px;
+    }
+
+    .breed-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .breed-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .breed-name-en {
+      font-size: 12px;
+      color: #888;
+      font-weight: 500;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Summary & Description */
+    .summary {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 24px;
+      min-height: 54px;
+      align-content: start;
+    }
+
+    .tag {
+      background-color: #f0f7ff;
+      color: #0066cc;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    /* Stats Section */
+    .stats-container {
+      background-color: #f8f9fa;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .stat-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #555;
+    }
+
+    .stat-stars {
+      color: #FFC107;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .stat-stars .empty {
+      color: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cards-container">
+    {% for card in cards %}
+    <div class="cat-card">
+      <div class="card-image">
+        <img src="{{ card.image_url }}" alt="{{ card.name_ko }}" loading="lazy"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22200%22%3E%3Crect fill=%22%23ddd%22 width=%22300%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+      </div>
+      <div class="card-content">
+        <div class="breed-header">
+          <h2 class="breed-name">{{ card.name_ko }}</h2>
+          <div class="breed-name-en">{{ card.name_en }}</div>
+        </div>
+
+        {% if card.summary %}
+        <p class="summary">"{{ card.summary }}"</p>
+        {% endif %}
+
+
+        <div class="tags">
+          {% for tag in card.tags[:4] %}
+          <span class="tag">{{ tag if tag.startswith('#') else '#' + tag }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="stats-container">
+          {% set stat_labels = {
+          'adaptability': '적응력',
+          'affection_level': '애교',
+          'child_friendly': '어린이 친화',
+          'dog_friendly': '강아지 친화',
+          'energy_level': '활동성',
+          'grooming': '그루밍 필요',
+          'health_issues': '건강 관리',
+          'intelligence': '똑똑함',
+          'shedding_level': '털 빠짐',
+          'social_needs': '사교성',
+          'stranger_friendly': '낯가림',
+          'vocalisation': '수다스러움'
+          } %}
+
+          {% set priority_stats = ['affection_level', 'energy_level', 'intelligence', 'adaptability'] %}
+
+          {% for stat_key in priority_stats %}
+          {% if card.stats[stat_key] is defined %}
+          <div class="stat-row">
+            <span class="stat-label">{{ stat_labels.get(stat_key, stat_key) }}</span>
+            <span class="stat-stars">
+              {% set value = card.stats[stat_key] %}
+              {% for i in range(1, 6) %}
+              {% if i <= value %}★{% else %}<span class="empty">★</span>{% endif %}
+            {% endfor %}
+            </span>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</body>
+
+</html>
