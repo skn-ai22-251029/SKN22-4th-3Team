@@ -9,6 +9,7 @@ from src.core.prompts.prompt_manager import prompt_manager
 from src.retrieval.hybrid_search import HybridRetriever
 from src.core.models.user_profile import UserProfile
 from src.core.models.matchmaker import BreedSelection, SearchIntent
+from src.agents.filters.breed_criteria import extract_breed_criteria
 
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai", temperature=0)
 llm_basic = init_chat_model(LLMConfig.BASIC_MODEL, model_provider="openai", temperature=0)
@@ -43,24 +44,30 @@ async def matchmaker_node(state: AgentState) -> Command:
         SystemMessage(content=query)
     ], config={"tags": ["router_classification"]})
 
-    # 2. 검색 쿼리 구성
+    # 2. 검색 쿼리 구성 및 조건 추출
     if intent.category == "RECOMMEND":
-        # 추천: 프로필 적극 반영
+        # 추천: 프로필 적극 반영 + 선호 조건 추출 (Hard filter + fallback)
         search_query = f"{intent.keywords} (집사 환경: {context})"
         specialist_mode = "Matchmaker (Recommendation)"
+        filter_result = await extract_breed_criteria(query)
     else:
         # 단순 조회: 프로필 배제
         search_query = intent.keywords
         specialist_mode = "Matchmaker (Lookup)"
+        filter_result = None
         
     print(f"🕵️ [MATCHMAKER] Intent: {intent.category}, Query: {search_query}")
 
     # 3. 10건 후보 검색
+    search_filters = {"categories": "Breeds"}
+    if filter_result and filter_result.mongo_filter:
+        search_filters.update(filter_result.mongo_filter)
+
     retriever = HybridRetriever(collection_name="care_guides")
     raw_results = await retriever.search(
-        search_query, 
-        specialist="Matchmaker", # 필터링용 메타데이터 태그
-        filters={"categories": "Breeds"}, 
+        search_query,
+        specialist="Matchmaker",
+        filters=search_filters,
         limit=10
     )
 
@@ -87,6 +94,13 @@ async def matchmaker_node(state: AgentState) -> Command:
         selection_prompt += f"{i}. {r.get('name_ko')} ({r.get('name_en')}): {r.get('summary')}\n"
         selection_prompt += f"   - 특징: {', '.join(r.get('personality_traits', []))}\n"
         selection_prompt += f"   - 통계: {r.get('stats', {})}\n\n"
+
+    if filter_result and filter_result.applied_conditions:
+        conditions_str = ", ".join(filter_result.applied_conditions)
+        selection_prompt += f"\n[적용된 검색 조건]\n{conditions_str}\n"
+        if filter_result.fallback_applied:
+            selection_prompt += f"※ {filter_result.fallback_reason}\n"
+        selection_prompt += "위 조건이 반영된 후보 목록입니다. 사용자 환경과 종합하여 최적의 3종을 선별하세요.\n"
 
     selector = llm_router.with_structured_output(BreedSelection)
     selection = await selector.ainvoke(
