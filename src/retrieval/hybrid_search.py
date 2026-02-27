@@ -5,16 +5,9 @@ from src.embeddings.factory import EmbeddingFactory
 from src.utils.text import tokenize_korean
 
 class HybridRetriever:
-    def __init__(self, version="v2", collection_name=None):
-        self.policy = ZipsaConfig.get_policy(version)
-        if version == "v1":
-            self.db = MongoDBManager.get_v1_db()
-        elif version == "v3":
-            self.db = MongoDBManager.get_v3_db()
-        else:
-            self.db = MongoDBManager.get_v2_db()
-        
-        # 정책에 있는 컬렉션을 기본값으로 사용 (명시적으로 주어지지 않은 경우)
+    def __init__(self, collection_name=None):
+        self.policy = ZipsaConfig.get_policy("v3")
+        self.db = MongoDBManager.get_v3_db()
         self.collection_name = collection_name or self.policy.collection_name
         self.collection = self.db[self.collection_name]
         self.embedder = EmbeddingFactory.get_embedder()
@@ -142,7 +135,3 @@ class HybridRetriever:
                 seen.add(doc_id)
         
         return merged[:limit]
-
-# 사용 예시
-# retriever = HybridRetriever(collection_name="breeds")
-# results = await retriever.search("활동적인 고양이 추천해줘")

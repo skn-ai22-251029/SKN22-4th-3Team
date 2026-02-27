@@ -22,13 +22,11 @@
 
 ### 4. [04_api](./04_api) (외부 연동 규격)
 - **`thecatapi_spec.md` / `thecatapi-oas.yaml`**: TheCatAPI 기반 묘종 데이터 수집 인터페이스 정의.
-- **`openapi_spec.md`**: OpenAI 임베딩 및 Chat Completion API 활용 프로토콜.
-- **`hospital_search_v2-3.md`**: 지역 기반 동물병원 검색 기능 설계 문서.
+- **`openapi_spec.md`**: 국가동물보호정보시스템 V2 API 명세 (유기동물 조회 등).
 
 ### 5. [05_data](./05_data) (데이터 전략)
-- **`v3_pipeline_strategy_report.md`**: 검샘 품질을 위한 **구조적 임베딩(Structured Embedding)** 전략 보고서.
-- **`v3_pipeline_flow.md`**: V3 파이프라인의 3단계 자동화 공정 시각화 문서.
-- **`data_preprocessing_report_v1~v3.md`**: 각 세대별 데이터 정제 및 메타데이터 추출 결과 데이터.
+- **`v3_pipeline_strategy_report.md`**: 검색 품질을 위한 **구조적 임베딩(Structured Embedding)** 전략 보고서.
+- **`data_preprocessing_report_v3.md`**: V3 데이터 정제 및 메타데이터 추출 결과.
 
 ### 6. [06_feature](./06_feature) (기능 명세)
 - **`auth_profile_spec.md`**: 사용자 인증 및 반려묘 프로필 관리 로딕 상세.
@@ -38,5 +36,3 @@
 - **`checklist.md`**: 프로젝트 완성도 자가 점검 및 11개 영역별 피드백 리스트.
 - **`roadmap_backlog.md`**: 향후 고도화 로드맵 및 기능 백로그.
 
-### 8. [dev_logs](./dev_logs) (기록)
-- 일자별 기술적 의사결정(ADR) 및 트러블슈팅 내역 보관 (`YYYY-MM-DD.md`).

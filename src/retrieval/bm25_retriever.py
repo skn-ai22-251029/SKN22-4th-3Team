@@ -4,15 +4,9 @@ from src.utils.mongodb import MongoDBManager
 from src.utils.text import tokenize_korean
 
 class BM25Retriever:
-    def __init__(self, version="v2", collection_name=None):
-        self.policy = ZipsaConfig.get_policy(version)
-        if version == "v1":
-            self.db = MongoDBManager.get_v1_db()
-        elif version == "v3":
-            self.db = MongoDBManager.get_v3_db()
-        else:
-            self.db = MongoDBManager.get_v2_db()
-        
+    def __init__(self, collection_name=None):
+        self.policy = ZipsaConfig.get_policy("v3")
+        self.db = MongoDBManager.get_v3_db()
         self.collection_name = collection_name or self.policy.collection_name
         self.collection = self.db[self.collection_name]
 

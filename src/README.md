@@ -14,17 +14,15 @@ LangGraph를 이용한 계층형 전문가 조직을 정의합니다.
 - **`care_team.py`**: 건강(의료)과 행동(교정) 상담을 통합한 단일 노드. 키워드 기반 내부 모드 전환.
 - **`liaison.py`**: 입양/구조 정보 전문가. 국가동물보호정보시스템 API 도구 호출 및 RAG 기반 입양 가이드 제공.
 - **`state.py`**: 전체 그래프에서 공유되는 `AgentState` 데이터 구조 정의 (`messages`, `user_profile`, `router_decision`, `specialist_result`, `recommendations`, `rag_docs`).
-- **`filters/`**:
-  - **`breed_criteria.py`**: Breed Filtering Policy 구현. 사용자 질문을 수치형 메타데이터 필터로 변환.
 - **`tools/`**:
   - **`animal_protection.py`**: 국가동물보호정보시스템 API 연동 Tool (`search_abandoned_animals`). 시도/시군구별 유기묘 검색.
   - **`region_codes.py`**: 시도(17개) 및 시군구 코드 정적 딕셔너리. API 호출 시 지역명→코드 변환.
   - **`shelter_codes.py`**: 보호소 코드 매핑.
 
 ### 2. [pipelines/](./pipelines) (데이터 제조 공정)
-V1, V2, V3 각 파이프라인 세대별로 독립적인 모듈 구조를 갖습니다.
+V3 파이프라인 단일 구조입니다.
 - **구조**: `classifier.py`, `embedder.py`, `loader.py`, `preprocessor.py`, `schemas.py`
-- **v3**: 현재 서비스 공정으로, 비동기 병렬 처리 및 구조적 임베딩을 통한 고속 적재 수행.
+- 비동기 병렬 처리 및 구조적 임베딩을 통한 고속 적재 수행.
 
 ### 3. [retrieval/](./retrieval) (지능형 검색 엔진)
 - **`hybrid_search.py`**: **RRF(Reciprocal Rank Fusion)** 알고리즘을 구현하여 벡터 검색 유사도와 BM25 키워드 정합성을 통합 산출. 동적 메타데이터 필터링 지원.
@@ -72,13 +70,13 @@ Streamlit + Jinja2 HTML 템플릿 기반의 커스텀 UI 시스템입니다.
 
 ### 6. [utils/](./utils) (공통 유틸리티)
 - **`text.py`**: Kiwi 형태소 분석기를 이용한 도메인 사전 기반 토큰화 및 클리닝.
-- **`mongodb.py`**: v1, v2, v3 클러스터별 비동기 DB 매니저.
+- **`mongodb.py`**: V3 MongoDB Atlas 비동기 DB 매니저.
 
 ### 7. [notebooks/](./notebooks) (실험실)
 - 토크나이저 최적화, 검색 성능 벤치마킹, 에이전트 프롬프트 실험용 Jupyter Notebook 보관.
 - **`agent_prompt_experiment.ipynb`**: 에이전트 프롬프트 및 라우팅 로직 테스트.
 - **`debug_langgraph.ipynb`**: LangGraph 전이 로직 및 상태 관리 디버깅.
-- **`retriever_experiment.ipynb`**: 하이브리드 검색 성능 벤치마킹.
+- **`analysis_retriever_comparison.ipynb`**: 하이브리드 검색 성능 벤치마킹.
 - **`tokenizer_experiment.ipynb`**: Kiwi 토크나이저 및 도메인 사전 효과 검증.
 
 ---

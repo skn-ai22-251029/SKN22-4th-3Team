@@ -6,7 +6,7 @@
 기본적으로 **[PEP 8](https://peps.python.org/pep-0008/)** 스타일 가이드를 준수합니다.
 
 ### 1.1 들여쓰기 (Indentation)
-- 공백(Space) 2칸을 사용합니다.
+- 공백(Space) 4칸을 사용합니다. (PEP8 표준)
 - 탭(Tab) 사용은 금지합니다.
 
 ### 1.2 최대 줄 길이 (Line Length)

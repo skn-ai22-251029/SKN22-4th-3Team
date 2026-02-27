@@ -38,12 +38,11 @@ db_name = config.get_db_name()  # "cat_library"
 ```
 
 ### VersionPolicy
-V1/V2/V3 각 버전별 데이터베이스, 컬렉션, 파일 경로를 정의합니다.
+V3 정책 데이터베이스, 컬렉션, 파일 경로를 정의합니다.
 
 **주요 필드**:
-- `version`: 버전 식별자 ("v1", "v2", "v3")
-- `db_name`: MongoDB 데이터베이스 이름
-- `collection_name`: 기본 컬렉션 이름 (V3: `"care_guides"`)
+- `db_name`: MongoDB 데이터베이스 이름 (`"cat_library"`)
+- `collection_name`: 기본 컬렉션 이름 (`"care_guides"`)
 - `categories`: 아티클 분류 체계
 - `specialists`: 전문가 페르소나 매핑
 
@@ -211,7 +210,6 @@ context = profile.to_context_string()
 - 각 모듈이 독립적으로 테스트 가능
 
 ### 4. 확장 가능성 (Extensibility)
-- 새 버전 추가: `VersionPolicy` 정의만으로 가능
 - 새 DTO 추가: `models/` 디렉토리에 파일 추가
 - 새 에이전트 추가: `prompts.yaml`에 섹션 추가
 
@@ -220,8 +218,7 @@ context = profile.to_context_string()
 ## 📝 Maintenance Notes
 
 ### Config 변경 시
-- `config.py`의 `VersionPolicy` 수정
-- 데이터베이스 마이그레이션 스크립트 실행
+- `config.py`의 `V3_POLICY` 또는 `LLMConfig` 수정
 
 ### Prompt 변경 시
 - `prompts/prompts.yaml` 수정
@@ -233,5 +230,4 @@ context = profile.to_context_string()
 3. 필드별 `Field()` 설명 추가
 
 ### 도메인 사전 갱신 시
-- `scripts/build_domain_dict.py` 실행
-- `tokenizer/domain_dictionary.txt` 자동 업데이트
+- `tokenizer/domain_dictionary.txt` 직접 수정
