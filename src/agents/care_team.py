@@ -66,7 +66,7 @@ async def care_team_node(state: AgentState) -> Command:
     persona = prompt_manager.get_prompt(config["persona_key"], field="persona")
 
     # 3. 전문가 태그 기반 RAG 검색
-    retriever = HybridRetriever(version="v3", collection_name="care_guides")
+    retriever = HybridRetriever(collection_name="care_guides")
     results = await retriever.search(
         last_msg, specialist=config["specialist_tag"], limit=3
     )
