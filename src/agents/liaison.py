@@ -60,7 +60,7 @@ async def liaison_node(state: AgentState) -> Command:
         )
 
     # 2. 리에종 전문가 태그 기반 RAG 검색
-    retriever = HybridRetriever(version="v3", collection_name="care_guides")
+    retriever = HybridRetriever(collection_name="care_guides")
     raw_results = await retriever.search(
         query, specialist="Liaison", limit=3
     )

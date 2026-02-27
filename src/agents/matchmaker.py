@@ -56,7 +56,7 @@ async def matchmaker_node(state: AgentState) -> Command:
     print(f"🕵️ [MATCHMAKER] Intent: {intent.category}, Query: {search_query}")
 
     # 3. 10건 후보 검색
-    retriever = HybridRetriever(version="v3", collection_name="care_guides")
+    retriever = HybridRetriever(collection_name="care_guides")
     raw_results = await retriever.search(
         search_query, 
         specialist="Matchmaker", # 필터링용 메타데이터 태그
