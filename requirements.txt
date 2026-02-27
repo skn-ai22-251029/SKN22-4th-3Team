@@ -16,7 +16,7 @@ motor
 streamlit>=1.41.0
 altair>=5.0.0
 httpx
-uvloop
+uvloop==0.22.1; sys_platform != 'win32'
 jinja2
 pydantic
 langsmith
