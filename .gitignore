@@ -12,3 +12,5 @@ src/notebooks/
 CLAUDE.md
 .claude/
 pr/
+node_modules/
+UI_wireframe/
