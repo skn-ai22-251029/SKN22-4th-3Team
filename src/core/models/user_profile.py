@@ -10,6 +10,7 @@ class UserProfile(BaseModel):
     housing: str = Field(default="apartment", description="주거 형태: 아파트, 단독주택, 원룸 등")
     has_children: bool = Field(default=False, description="자녀 유무 (어린이 안전 필수 사항)")
     has_dog: bool = Field(default=False, description="강아지 유무 (사회성/호환 필수 사항)")
+    has_cat: bool = Field(default=False, description="기존 고양이 유무 (다묘 가정 호환성)")
     allergy: bool = Field(default=False, description="알레르기 유무 (저자극성 필수 사항)")
     
     # 라이프스타일 및 경험 (유연 선호 조건 - 랭킹용)
@@ -28,11 +29,14 @@ class UserProfile(BaseModel):
         traits_str = ', '.join(self.traits) if self.traits else '미설정'
         allergy_str = "있음 (저자극성 품종 필수)" if self.allergy else "없음"
         companion_str = ', '.join(self.companion) if self.companion else '없음'
+        work_str = self.work_style if self.work_style else '미설정'
         return f"""
 [사용자 환경 및 제약 조건]
 - 주거: {self.housing}
 - 활동량: {self.activity}
+- 부재 시간: {work_str}
 - 동거인: {companion_str}
+- 기존 고양이: {"있음 (다묘 가정)" if self.has_cat else "없음"}
 - 알레르기: {allergy_str}
 - 선호 성향: {traits_str}
 """.strip()
@@ -58,7 +62,15 @@ class UserProfile(BaseModel):
         # 강아지: 행동 호환성 사항
         if self.has_dog or "강아지" in self.companion:
             constraints["dog_friendly"] = 4
-        
+
+        # 다묘 가정: 고양이 사회성 사항
+        if self.has_cat or "고양이 있음" in self.companion:
+            constraints["social_needs"] = {"$gte": 3}
+
+        # 장시간 부재: 독립적인 품종 필터
+        if self.work_style in ("4~8시간", "8시간 이상"):
+            constraints["social_needs"] = {"$lte": 3}
+
         return constraints
     
     @classmethod
@@ -70,6 +82,7 @@ class UserProfile(BaseModel):
         # UI 필드명을 DTO 필드로 매핑
         has_children = "어린 아이" in data.get("companion", [])
         has_dog = "강아지" in data.get("companion", [])
+        has_cat = "고양이 있음" in data.get("companion", [])
         
         # 활동량 추출
         activity_map = {
@@ -91,7 +104,8 @@ class UserProfile(BaseModel):
             housing=data.get("housing", "apartment"),
             has_children=has_children,
             has_dog=has_dog,
-            allergy=False,  # TODO: 온보딩 폼에 알레르기 필드 추가 필요
+            has_cat=has_cat,
+            allergy=data.get("allergy", False),
             activity=activity,
             experience=experience,
             work_style=data.get("work_style"),
