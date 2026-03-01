@@ -7,7 +7,7 @@ from langgraph.types import Command
 from .state import AgentState
 from src.core.prompts.prompt_manager import prompt_manager
 from src.retrieval.hybrid_search import HybridRetriever
-from src.core.models.user_profile import UserProfile
+from src.core.models.user import UserDTO
 from src.core.models.matchmaker import BreedSelection, SearchIntent
 from src.agents.filters.breed_criteria import extract_breed_criteria
 
@@ -23,14 +23,10 @@ async def matchmaker_node(state: AgentState) -> Command:
     """
     query = state["messages"][-1].content
     
-    # UserProfile 초기화
-    profile_data = state.get("user_profile", {})
-    if isinstance(profile_data, dict):
-        profile = UserProfile.from_dict(profile_data)
-    else:
-        profile = profile_data
+    # UserDTO 초기화
+    user = UserDTO.from_state(state)
         
-    context = profile.to_context_string()
+    context = user.to_context_string()
     persona = prompt_manager.get_prompt("matchmaker", field="persona")
 
     # 1. 검색 의도 분류 (Intent Classification)
