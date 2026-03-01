@@ -44,7 +44,7 @@ if not os.getenv("OPENAI_API_KEY"):
 
 # --------------- 임포트 ---------------
 from utils import get_zipsa_response_streaming
-from src.core.models.user_profile import UserProfile
+from src.core.models.user import UserDTO
 from src.ui.renderers.cat_card import render_cat_cards
 from src.core.models.cat_card import CatCardRecommendation
 from src.ui.renderers.rag_doc import render_rag_documents
@@ -144,13 +144,7 @@ if st.session_state.page == "intro":
 
         if onboarding_data:
             try:
-                st.session_state.user_profile = UserProfile(
-                    housing=onboarding_data["housing"],
-                    activity=onboarding_data["activity"],
-                    experience=onboarding_data["experience"],
-                    companion=onboarding_data["companion"],
-                    allergy=onboarding_data["allergy"]
-                )
+                st.session_state.user_profile = UserDTO.from_dict(onboarding_data)
                 st.session_state.page = "chat"
                 st.rerun()
             except Exception as e:
