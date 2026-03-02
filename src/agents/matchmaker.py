@@ -88,8 +88,7 @@ async def matchmaker_node(state: AgentState) -> Command:
 """
     for i, r in enumerate(raw_results):
         selection_prompt += f"{i}. {r.get('name_ko')} ({r.get('name_en')}): {r.get('summary')}\n"
-        selection_prompt += f"   - 특징: {', '.join(r.get('personality_traits', []))}\n"
-        selection_prompt += f"   - 통계: {r.get('stats', {})}\n\n"
+        selection_prompt += f"   - 특징: {', '.join(r.get('personality_traits', []))}\n\n"
 
     if filter_result and filter_result.applied_conditions:
         conditions_str = ", ".join(filter_result.applied_conditions)

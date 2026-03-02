@@ -2,12 +2,14 @@
 리에종: 입양 및 구조 정보 전문가
 """
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig
+from src.core.config import LLMConfig, TokenConfig
+from src.core.token_utils import trim_history
 from langchain_core.messages import SystemMessage, ToolMessage
 from langgraph.types import Command
 
 from .state import AgentState
 from .tools.animal_protection import search_abandoned_animals
+from src.core.models.user import UserDTO
 from src.core.prompts.prompt_manager import prompt_manager
 from src.retrieval.hybrid_search import HybridRetriever
 
@@ -26,7 +28,7 @@ async def liaison_node(state: AgentState) -> Command:
     """
 
     last_msg = state["messages"][-1]
-    profile = state.get("user_profile", {})
+    user = UserDTO.from_state(state)
 
     # 도구 실행 후 복귀 시, 도구 결과를 구조화된 출력으로 패키징
     if isinstance(last_msg, ToolMessage):
@@ -45,12 +47,13 @@ async def liaison_node(state: AgentState) -> Command:
         )
 
     query = last_msg.content
-    context = f"거주: {profile.get('housing', '미설정')}, 활동량: {profile.get('activity', '미설정')}"
+    context = user.to_context_string()
 
     # 1. 동물보호 조회 여부 판단 — LLM(도구 바인딩)이 직접 결정
     # 집사가 이미 입양 의도로 라우팅했으므로 LLM에 먼저 위임해도 안전함.
+    history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_router)
     ai_msg = await llm_with_tools.ainvoke(
-        state["messages"],
+        history,
         config={"tags": ["router_classification"]}
     )
     if hasattr(ai_msg, "tool_calls") and ai_msg.tool_calls:

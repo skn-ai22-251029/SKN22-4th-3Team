@@ -4,7 +4,8 @@
 from typing import Literal
 
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig
+from src.core.config import LLMConfig, TokenConfig
+from src.core.token_utils import trim_history
 from langchain_core.messages import SystemMessage
 from langgraph.types import Command
 from pydantic import BaseModel, Field
@@ -51,13 +52,14 @@ async def care_team_node(state: AgentState) -> Command:
 
     # 1. LLM 기반 분류
     classifier = llm_router.with_structured_output(CareClassification)
+    history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_router)
     decision = await classifier.ainvoke([
         SystemMessage(content=(
             "사용자의 고양이 관련 질문을 분류하세요.\n"
             "- physician: 질병, 응급, 약물, 영양/식이, 생물학적 팩트, 의료적 오해, 위험한 처치\n"
             "- peacekeeper: 행동, 심리, 합사, 순화, 구조/포획, 훈련"
         )),
-        *state["messages"]
+        *history,
     ], config={"tags": ["router_classification"]})
 
     config = SPECIALIST_CONFIG[decision.category]

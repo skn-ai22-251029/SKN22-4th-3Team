@@ -46,6 +46,13 @@ class ZipsaConfig:
             raise ValueError(f"알 수 없는 버전입니다: {version}")
         return cls.POLICY
 
+class TokenConfig:
+    # 히스토리 컨텍스트 최대 토큰 (입력 제한, 최근 메시지 우선 유지)
+    MAX_HISTORY_TOKENS: int = 4000
+    # 턴당 최대 출력 토큰
+    MAX_TOKENS_PER_TURN: int = 1000
+
+
 class LLMConfig:
     # 기본 분류/라우팅용 (속도/비용 최적화)
     ROUTER_MODEL = "gpt-4.1-nano"
