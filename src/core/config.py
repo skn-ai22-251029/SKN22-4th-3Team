@@ -53,6 +53,14 @@ class TokenConfig:
     MAX_TOKENS_PER_TURN: int = 1000
 
 
+class AuthConfig:
+    # ZIPSA 자체 발급 JWT 설정
+    JWT_ALGORITHM: str = "HS256"
+    JWT_EXPIRE_DAYS: int = 30
+    # 유저 데이터 MongoDB 데이터베이스명
+    USER_DB_NAME: str = "zipsa"
+
+
 class LLMConfig:
     # 기본 분류/라우팅용 (속도/비용 최적화)
     ROUTER_MODEL = "gpt-4.1-nano"
