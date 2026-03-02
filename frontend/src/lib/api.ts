@@ -171,6 +171,22 @@ export interface ChatSession {
   updated_at: string;
 }
 
+export interface RescueCat {
+  animal_id: string;
+  breed: string;
+  age: string;
+  sex: string;
+  neutered: string;
+  feature: string;
+  image_url: string;
+  shelter_name: string;
+  shelter_address: string;
+  shelter_phone: string;
+  notice_end_date: string;
+  sido: string;
+  sigungu: string;
+}
+
 export interface ChatMessage {
   message_id: string;
   session_id: string;
@@ -178,6 +194,7 @@ export interface ChatMessage {
   content: string;
   recommendations: Recommendation[];
   rag_docs: RagDoc[];
+  rescue_cats: RescueCat[];
   created_at: string;
 }
 
@@ -215,12 +232,104 @@ export async function getMessages(token: string, sessionId: string): Promise<Cha
   return res.json();
 }
 
+// ── UserCat ──────────────────────────────────────────────────────────────────
+
+export interface VaccinationInfo {
+  label: string;
+  date: string;
+}
+
+export interface UserCatHealth {
+  vaccinations: VaccinationInfo[];
+}
+
+export interface UserCat {
+  cat_id: string;
+  user_id: string;
+  name: string;
+  age_months: number;
+  gender: string;
+  breed_name_ko: string;
+  breed_name_en: string;
+  profile_image_url: string | null;
+  health: UserCatHealth;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UserCatCreateRequest {
+  name: string;
+  age_months?: number;
+  gender?: string;
+  breed_name_ko?: string;
+  breed_name_en?: string;
+  profile_image_url?: string | null;
+  health?: Partial<UserCatHealth>;
+}
+
+export interface UserCatUpdateRequest {
+  name?: string;
+  age_months?: number;
+  gender?: string;
+  breed_name_ko?: string;
+  breed_name_en?: string;
+  profile_image_url?: string | null;
+  health?: Partial<UserCatHealth>;
+}
+
+export async function getUserCats(token: string): Promise<UserCat[]> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/cats`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getUserCats failed: ${res.status}`);
+  return res.json();
+}
+
+export async function createUserCat(token: string, data: UserCatCreateRequest): Promise<UserCat> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/cats`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error(`createUserCat failed: ${res.status}`);
+  return res.json();
+}
+
+export async function updateUserCat(
+  token: string,
+  catId: string,
+  data: UserCatUpdateRequest,
+): Promise<UserCat> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/cats/${catId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error(`updateUserCat failed: ${res.status}`);
+  return res.json();
+}
+
+export async function deleteUserCat(token: string, catId: string): Promise<void> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/cats/${catId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`deleteUserCat failed: ${res.status}`);
+}
+
 export async function* streamChat(
   token: string,
   sessionId: string,
   message: string,
   userProfile?: UserProfileResponse | null,
-): AsyncGenerator<{ type: string; content?: string; data?: unknown }> {
+): AsyncGenerator<
+  | { type: "token"; content: string }
+  | { type: "recommendations"; data: Recommendation[] }
+  | { type: "rag_docs"; data: RagDoc[] }
+  | { type: "rescue_cats"; data: RescueCat[] }
+  | { type: "error"; content: string }
+  | { type: string; content?: string; data?: unknown }
+> {
   const res = await fetch(`${API_BASE}/api/v1/chat/stream`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
