@@ -4,7 +4,8 @@
 import json
 
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig
+from src.core.config import LLMConfig, TokenConfig
+from src.core.token_utils import trim_history
 from langchain_core.messages import SystemMessage
 from langgraph.types import Command
 from pydantic import BaseModel, Field
@@ -14,7 +15,11 @@ from .state import AgentState
 from src.core.prompts.prompt_manager import prompt_manager
 
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai")
-llm_basic = init_chat_model(LLMConfig.BASIC_MODEL, model_provider="openai")
+llm_basic = init_chat_model(
+    LLMConfig.BASIC_MODEL,
+    model_provider="openai",
+    max_tokens=TokenConfig.MAX_TOKENS_PER_TURN,
+)
 
 
 class RouterDecision(BaseModel):
@@ -55,10 +60,10 @@ async def head_butler_node(state: AgentState) -> Command:
         prompt = POSTPROCESS_PROMPT.format(
             specialist_json=json.dumps(specialist_result, ensure_ascii=False, indent=2)
         )
-
+        history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
         response = await llm_basic.ainvoke([
             SystemMessage(content=prompt),
-            *state["messages"]
+            *history,
         ])
 
         return Command(
@@ -73,8 +78,9 @@ async def head_butler_node(state: AgentState) -> Command:
     # 첫 방문: 분류 및 라우팅
     system_prompt = prompt_manager.get_prompt("head_butler")
     router = llm_router.with_structured_output(RouterDecision)
+    history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_router)
     decision = await router.ainvoke(
-        [SystemMessage(content=system_prompt)] + state["messages"],
+        [SystemMessage(content=system_prompt)] + history,
         config={"tags": ["router_classification"]}
     )
 
@@ -93,9 +99,10 @@ async def head_butler_node(state: AgentState) -> Command:
         general_prompt = prompt_manager.get_prompt("general")
         general_prompt = general_prompt.format(profile_context=profile_context)
 
+        history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
         response = await llm_basic.ainvoke([
             SystemMessage(content=general_prompt),
-            *state["messages"]
+            *history,
         ])
 
         updates.update({"messages": [response]})

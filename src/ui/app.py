@@ -84,29 +84,27 @@ profile = st.session_state.user_profile
 def get_profile_summary(p):
     if not p:
         return None
-    
+
+    # UserDTO는 preferences 안에, UserProfile은 직접 접근
+    pref = p.preferences if hasattr(p, "preferences") else p
+
     parts = []
-    # 주거 형태
-    h = HOUSING_MAP.get(p.housing, p.housing)
+    h = HOUSING_MAP.get(pref.housing, pref.housing)
     parts.append(f"🏠 거주: {h}")
-    
-    # 활동량
-    a = ACTIVITY_MAP.get(p.activity, p.activity)
+
+    a = ACTIVITY_MAP.get(pref.activity, pref.activity)
     parts.append(f"🏃 활동량: {a}")
-    
-    # 경험 수준
-    e = EXP_MAP.get(p.experience, p.experience)
+
+    e = EXP_MAP.get(pref.experience, pref.experience)
     parts.append(f"🎓 경력: {e}")
-    
-    # 동거인
-    if p.companion:
-        c = ", ".join(p.companion)
+
+    if pref.companion:
+        c = ", ".join(pref.companion)
         parts.append(f"👥 동거: {c}")
-    
-    # 알레르기
-    al = "있음" if p.allergy else "없음"
+
+    al = "있음" if pref.allergy else "없음"
     parts.append(f"🚨 알레르기: {al}")
-    
+
     return " · ".join(parts)
 
 st.session_state.summary = get_profile_summary(profile)

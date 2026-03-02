@@ -48,4 +48,8 @@ class UserDTO(BaseModel):
             return profile_data
         if isinstance(profile_data, UserProfile):
             return cls(preferences=profile_data)
+        # 직렬화된 UserDTO dict (preferences 키 포함) → model_validate로 복원
+        if isinstance(profile_data, dict) and "preferences" in profile_data:
+            return cls.model_validate(profile_data)
+        # 온보딩 flat dict 포맷
         return cls.from_dict(profile_data)
