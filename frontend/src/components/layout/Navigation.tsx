@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ChevronDown, User, LogOut, Cat, Menu } from "lucide-react";
@@ -12,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getProfile, getZipsaToken } from "@/lib/api";
+import { useZipsaStore } from "@/store/zipsa";
 
 interface NavigationProps {
   onMenuClick?: () => void;
@@ -24,6 +23,7 @@ export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false
   const { data: session, status } = useSession();
   const router = useRouter();
   const isLoggedIn = status === "authenticated";
+  const profile = useZipsaStore((s) => s.profile);
 
   // OAuth 기본값
   const rawName = session?.user?.name;
@@ -31,25 +31,9 @@ export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false
     rawName && rawName !== "undefined" && rawName !== "null" ? rawName : "집사님";
   const oauthAvatar = session?.user?.image ?? null;
 
-  // 프로필에서 불러온 커스텀 값
-  const [profileNickname, setProfileNickname] = useState<string | null>(null);
-  const [profileAvatar, setProfileAvatar] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!isLoggedIn) return;
-    const token = getZipsaToken();
-    if (!token) return;
-    getProfile(token)
-      .then((p) => {
-        if (p.nickname) setProfileNickname(p.nickname);
-        if (p.avatar_url) setProfileAvatar(p.avatar_url);
-      })
-      .catch(() => {/* 프로필 없으면 OAuth 기본값 유지 */});
-  }, [isLoggedIn]);
-
-  // 뱃지에 표시할 값: 프로필 설정값 우선, 없으면 OAuth
-  const badgeAvatar = profileAvatar ?? oauthAvatar;
-  const badgeNickname = profileNickname ?? oauthNickname;
+  // 뱃지: 프로필 설정값 우선, 없으면 OAuth
+  const badgeAvatar = profile?.avatar_url ?? oauthAvatar;
+  const badgeNickname = profile?.nickname ?? oauthNickname;
 
   return (
     <nav className="w-full h-16 border-b-2 border-gray-300 bg-white">
@@ -73,7 +57,7 @@ export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false
             <>
               {!hideNewChat && (
                 <Button
-                  onClick={() => router.push("/chat")}
+                  onClick={() => router.push("/chat/new")}
                   className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-6"
                 >
                   새 채팅
@@ -136,7 +120,7 @@ export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false
             <>
               {!hideNewChat && (
                 <Button
-                  onClick={() => router.push("/chat")}
+                  onClick={() => router.push("/chat/new")}
                   className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-6"
                 >
                   새 채팅

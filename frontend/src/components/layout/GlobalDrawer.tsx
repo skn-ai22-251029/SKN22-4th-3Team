@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { X, Plus, Search, Cat, LogIn, Trash2 } from "lucide-react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
+import { getZipsaToken, type ChatSession } from "@/lib/api";
+import { useZipsaStore } from "@/store/zipsa";
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -18,22 +20,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { deleteSession } from "@/lib/api";
 
-interface ChatSession {
-  id: string;
-  title: string;
-  date: string;
-}
-
-const mockSessions: ChatSession[] = [
-  { id: "1", title: "아파트에 맞는 고양이 추천", date: "2024.03.01" },
-  { id: "2", title: "래그돌 성격 상담", date: "2024.02.28" },
-  { id: "3", title: "보호소 입양 절차 문의", date: "2024.02.27" },
-  { id: "4", title: "고양이 알레르기 품종", date: "2024.02.25" },
-  { id: "5", title: "브리티시 숏헤어 특징", date: "2024.02.24" },
-  { id: "6", title: "실내 고양이 기르기", date: "2024.02.20" },
-  { id: "7", title: "코리안숏헤어 vs 러시안블루", date: "2024.02.18" },
-];
 
 interface GlobalDrawerProps {
   isOpen: boolean;
@@ -44,6 +32,8 @@ export function GlobalDrawer({ isOpen, onClose }: GlobalDrawerProps) {
   const { status } = useSession();
   const router = useRouter();
   const isLoggedIn = status === "authenticated";
+  const sessions = useZipsaStore((s) => s.sessions);
+  const removeSession = useZipsaStore((s) => s.removeSession);
   const [isDeleting, setIsDeleting] = useState(false);
   const [selectedSession, setSelectedSession] = useState<ChatSession | null>(null);
 
@@ -52,10 +42,17 @@ export function GlobalDrawer({ isOpen, onClose }: GlobalDrawerProps) {
     setIsDeleting(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
+    if (!selectedSession) return;
+    const token = getZipsaToken();
+    if (token) {
+      await deleteSession(token, selectedSession.session_id).catch(() => {});
+      removeSession(selectedSession.session_id);
+    }
     setIsDeleting(false);
-    onClose();
   };
+
+  const visibleSessions = sessions.filter((s) => s.message_count > 0);
 
   const content = isLoggedIn ? (
     <div className="h-full flex flex-col">
@@ -68,7 +65,7 @@ export function GlobalDrawer({ isOpen, onClose }: GlobalDrawerProps) {
         </div>
         <Button
           variant="outline"
-          onClick={() => { router.push("/chat"); onClose(); }}
+          onClick={() => { router.push("/chat/new"); onClose(); }}
           className="w-full border-2 border-gray-900 bg-white text-gray-900 hover:bg-gray-100 gap-2"
         >
           <Plus className="w-4 h-4" />
@@ -96,28 +93,32 @@ export function GlobalDrawer({ isOpen, onClose }: GlobalDrawerProps) {
         </div>
         <ScrollArea className="h-full px-2">
           <div className="space-y-1 pb-4">
-            {mockSessions.map((session) => (
-              <div
-                key={session.id}
-                onClick={() => { router.push(`/chat?session=${session.id}`); onClose(); }}
-                className="w-full h-12 px-3 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-2 group relative cursor-pointer"
-              >
-                <div className="flex-1 text-left min-w-0">
-                  <p className="text-sm text-gray-900 truncate font-medium">{session.title}</p>
+            {visibleSessions.length === 0 ? (
+              <p className="text-xs text-gray-400 px-3 py-4">대화 기록이 없습니다.</p>
+            ) : (
+              visibleSessions.map((session) => (
+                <div
+                  key={session.session_id}
+                  onClick={() => { router.push(`/chat/${session.session_id}`); onClose(); }}
+                  className="w-full h-12 px-3 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-2 group relative cursor-pointer"
+                >
+                  <div className="flex-1 text-left min-w-0">
+                    <p className="text-sm text-gray-900 truncate font-medium">{session.title || "새 대화"}</p>
+                  </div>
+                  <div className="flex items-center flex-shrink-0">
+                    <span className="text-xs text-gray-400 whitespace-nowrap group-hover:opacity-0 transition-opacity">
+                      {new Date(session.updated_at).toLocaleDateString("ko-KR", { month: "2-digit", day: "2-digit" })}
+                    </span>
+                    <button
+                      className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-600"
+                      onClick={(e) => { e.stopPropagation(); handleDelete(session); }}
+                    >
+                      <Trash2 className="w-4 h-4" strokeWidth={2} />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex items-center flex-shrink-0">
-                  <span className="text-xs text-gray-400 whitespace-nowrap group-hover:opacity-0 transition-opacity">
-                    {session.date}
-                  </span>
-                  <button
-                    className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-600"
-                    onClick={(e) => { e.stopPropagation(); handleDelete(session); }}
-                  >
-                    <Trash2 className="w-4 h-4" strokeWidth={2} />
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </ScrollArea>
       </div>
@@ -133,7 +134,7 @@ export function GlobalDrawer({ isOpen, onClose }: GlobalDrawerProps) {
         </div>
         <Button
           variant="outline"
-          onClick={() => { router.push("/chat"); onClose(); }}
+          onClick={() => { router.push("/chat/new"); onClose(); }}
           className="w-full border-2 border-gray-900 bg-white text-gray-900 hover:bg-gray-100 gap-2"
         >
           <Plus className="w-4 h-4" />

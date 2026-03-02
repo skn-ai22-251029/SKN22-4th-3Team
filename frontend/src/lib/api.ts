@@ -141,3 +141,109 @@ export async function getAvatarPresignUrl(
   if (!res.ok) throw new Error(`getAvatarPresignUrl failed: ${res.status}`);
   return res.json();
 }
+
+// ── Chat ─────────────────────────────────────────────────────────────────────
+
+export interface Recommendation {
+  name_ko: string;
+  name_en: string;
+  image_url: string;
+  summary: string;
+  tags: string[];
+  stats: Record<string, number>;
+}
+
+export interface RagDoc {
+  title: string;
+  subtitle: string;
+  source: string;
+  url: string;
+}
+
+export interface ChatSession {
+  session_id: string;
+  user_id: string;
+  thread_id: string;
+  title: string;
+  last_message: string | null;
+  message_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ChatMessage {
+  message_id: string;
+  session_id: string;
+  role: "human" | "ai";
+  content: string;
+  recommendations: Recommendation[];
+  rag_docs: RagDoc[];
+  created_at: string;
+}
+
+export async function createSession(token: string): Promise<ChatSession> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/sessions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({}),
+  });
+  if (!res.ok) throw new Error(`createSession failed: ${res.status}`);
+  return res.json();
+}
+
+export async function getSessions(token: string): Promise<ChatSession[]> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/sessions`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getSessions failed: ${res.status}`);
+  return res.json();
+}
+
+export async function deleteSession(token: string, sessionId: string): Promise<void> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/sessions/${sessionId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`deleteSession failed: ${res.status}`);
+}
+
+export async function getMessages(token: string, sessionId: string): Promise<ChatMessage[]> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/sessions/${sessionId}/messages`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getMessages failed: ${res.status}`);
+  return res.json();
+}
+
+export async function* streamChat(
+  token: string,
+  sessionId: string,
+  message: string,
+  userProfile?: UserProfileResponse | null,
+): AsyncGenerator<{ type: string; content?: string; data?: unknown }> {
+  const res = await fetch(`${API_BASE}/api/v1/chat/stream`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ session_id: sessionId, message, user_profile: userProfile ?? null }),
+  });
+  if (!res.ok) throw new Error(`streamChat failed: ${res.status}`);
+  if (!res.body) return;
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() ?? "";
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const payload = line.slice(6);
+      if (payload === "[DONE]") return;
+      try { yield JSON.parse(payload); } catch { /* skip malformed */ }
+    }
+  }
+}
