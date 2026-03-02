@@ -76,6 +76,7 @@ export default function ChatSessionPage() {
   const [ragDocs, setRagDocs] = useState<RagDoc[]>([]);
   const [selectedBreed, setSelectedBreed] = useState(0);
   const [sessionTitle, setSessionTitle] = useState("새 대화");
+  const [creating, setCreating] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const sendingRef = useRef(false);          // handleSend 중복 실행 방지
   const loadedSessionRef = useRef<string | null>(null); // getMessages 중복 호출 방지
@@ -120,14 +121,17 @@ export default function ChatSessionPage() {
 
     // 새 채팅이면 첫 메시지 전송 시 세션 생성
     if (!resolvedIdRef.current) {
+      setCreating(true);
       try {
         const session = await createSession(token);
         resolvedIdRef.current = session.session_id;
         addSession(session);
       } catch {
+        setCreating(false);
         sendingRef.current = false;
         return;
       }
+      setCreating(false);
     }
     const activeSessionId = resolvedIdRef.current;
 
@@ -231,6 +235,19 @@ export default function ChatSessionPage() {
               ),
             )}
 
+            {/* 세션 생성 중 로딩 */}
+            {creating && (
+              <div className="flex justify-center">
+                <div className="bg-white border-2 border-gray-200 rounded-2xl px-4 py-3">
+                  <span className="inline-flex gap-1 items-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* 스트리밍 중인 AI 메시지 */}
             {streaming && (
               <div className="flex justify-start gap-3">
@@ -254,19 +271,19 @@ export default function ChatSessionPage() {
           </div>
 
           <div className="border-t-2 border-gray-300 p-4">
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-stretch">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="메시지를 입력하세요..."
-                disabled={streaming}
-                className="flex-1 border-2 border-gray-300 focus:border-gray-900 rounded-lg px-4 py-2"
+                disabled={streaming || creating}
+                className="flex-1 h-10 border-2 border-gray-300 focus:border-gray-900 rounded-lg px-4"
               />
               <Button
                 onClick={handleSend}
-                disabled={streaming || !input.trim()}
-                className="bg-gray-900 text-white hover:bg-gray-800 px-4 disabled:opacity-50"
+                disabled={streaming || creating || !input.trim()}
+                className="h-10 bg-gray-900 text-white hover:bg-gray-800 px-4 disabled:opacity-50"
               >
                 <Send className="w-5 h-5" />
               </Button>
