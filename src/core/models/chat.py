@@ -57,6 +57,7 @@ class ChatMessageResponse(BaseModel):
 class ChatInvokeRequest(BaseModel):
     session_id: str
     message: str
+    user_profile: Optional[Dict[str, Any]] = Field(default=None, description="프론트에서 전달하는 온보딩 프로파일")
 
 
 class ChatInvokeResponse(BaseModel):

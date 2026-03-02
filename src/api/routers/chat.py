@@ -116,7 +116,7 @@ async def stream_chat(
             async for event in graph_app.astream_events(
                 {
                     "messages": [HumanMessage(content=body.message)],
-                    "user_profile": {},
+                    "user_profile": body.user_profile or {},
                 },
                 config={"configurable": {"thread_id": thread_id}},
                 version="v2",
