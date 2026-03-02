@@ -2,17 +2,21 @@
 수석 집사: 메인 라우터 및 응답 합성기
 """
 import json
+import logging
 
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig, TokenConfig
-from src.core.token_utils import trim_history
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import AIMessage, SystemMessage
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 from typing import Literal
 
-from .state import AgentState
+from src.core.config import LLMConfig, TokenConfig
+from src.core.fallbacks import FALLBACK_LLM
 from src.core.prompts.prompt_manager import prompt_manager
+from src.core.token_utils import trim_history
+from .state import AgentState
+
+logger = logging.getLogger(__name__)
 
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai")
 llm_basic = init_chat_model(
@@ -52,61 +56,68 @@ async def head_butler_node(state: AgentState) -> Command:
     - 첫 방문: 질문 분류 → 전문가로 라우팅 또는 직접 응답 (general)
     - 재방문: specialist_result JSON 읽기 → 최종 AIMessage 생성 → END
     """
+    try:
+        specialist_result = state.get("specialist_result")
 
-    specialist_result = state.get("specialist_result")
+        # 재방문: 전문가가 구조화된 결과를 보고함
+        if specialist_result and state.get("router_decision") in ("matchmaker", "liaison", "care"):
+            prompt = POSTPROCESS_PROMPT.format(
+                specialist_json=json.dumps(specialist_result, ensure_ascii=False, indent=2)
+            )
+            history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
+            response = await llm_basic.ainvoke([
+                SystemMessage(content=prompt),
+                *history,
+            ])
 
-    # 재방문: 전문가가 구조화된 결과를 보고함
-    if specialist_result and state.get("router_decision") in ("matchmaker", "liaison", "care"):
-        prompt = POSTPROCESS_PROMPT.format(
-            specialist_json=json.dumps(specialist_result, ensure_ascii=False, indent=2)
+            return Command(
+                update={
+                    "router_decision": None,
+                    "specialist_result": None,
+                    "messages": [response],
+                },
+                goto="__end__"
+            )
+
+        # 첫 방문: 분류 및 라우팅
+        system_prompt = prompt_manager.get_prompt("head_butler")
+        router = llm_router.with_structured_output(RouterDecision)
+        history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_router)
+        decision = await router.ainvoke(
+            [SystemMessage(content=system_prompt)] + history,
+            config={"tags": ["router_classification"]}
         )
-        history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
-        response = await llm_basic.ainvoke([
-            SystemMessage(content=prompt),
-            *history,
-        ])
 
+        # 이전 턴의 잔여 결과 초기화
+        updates: dict = {
+            "router_decision": decision.category,
+            "recommendations": [],
+            "rag_docs": []
+        }
+
+        # 일반 질문은 직접 처리 → AIMessage → END
+        if decision.category == "general":
+            profile = state.get("user_profile", {})
+            profile_context = f"거주: {profile.get('housing', '미설정')}, 활동량: {profile.get('activity', '미설정')}"
+
+            general_prompt = prompt_manager.get_prompt("general")
+            general_prompt = general_prompt.format(profile_context=profile_context)
+
+            history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
+            response = await llm_basic.ainvoke([
+                SystemMessage(content=general_prompt),
+                *history,
+            ])
+
+            updates.update({"messages": [response]})
+            return Command(update=updates, goto="__end__")
+
+        # 전문가로 라우팅
+        return Command(update=updates, goto=decision.category)
+
+    except Exception:
+        logger.exception("head_butler_node 오류 발생")
         return Command(
-            update={
-                "router_decision": None,
-                "specialist_result": None,
-                "messages": [response],
-            },
+            update={"messages": [AIMessage(content=FALLBACK_LLM)]},
             goto="__end__"
         )
-
-    # 첫 방문: 분류 및 라우팅
-    system_prompt = prompt_manager.get_prompt("head_butler")
-    router = llm_router.with_structured_output(RouterDecision)
-    history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_router)
-    decision = await router.ainvoke(
-        [SystemMessage(content=system_prompt)] + history,
-        config={"tags": ["router_classification"]}
-    )
-
-    # 이전 턴의 잔여 결과 초기화
-    updates: dict = {
-        "router_decision": decision.category,
-        "recommendations": [],
-        "rag_docs": []
-    }
-
-    # 일반 질문은 직접 처리 → AIMessage → END
-    if decision.category == "general":
-        profile = state.get("user_profile", {})
-        profile_context = f"거주: {profile.get('housing', '미설정')}, 활동량: {profile.get('activity', '미설정')}"
-
-        general_prompt = prompt_manager.get_prompt("general")
-        general_prompt = general_prompt.format(profile_context=profile_context)
-
-        history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
-        response = await llm_basic.ainvoke([
-            SystemMessage(content=general_prompt),
-            *history,
-        ])
-
-        updates.update({"messages": [response]})
-        return Command(update=updates, goto="__end__")
-
-    # 전문가로 라우팅
-    return Command(update=updates, goto=decision.category)

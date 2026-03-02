@@ -1,15 +1,21 @@
+import logging
+
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import AIMessage, SystemMessage
 from langgraph.types import Command
-from .state import AgentState
+
+from src.core.config import LLMConfig
+from src.core.fallbacks import FALLBACK_LLM, FALLBACK_SEARCH
 from src.core.prompts.prompt_manager import prompt_manager
 from src.retrieval.hybrid_search import HybridRetriever
 from src.core.models.user import UserDTO
 from src.core.models.matchmaker import BreedSelection, SearchIntent
 from src.agents.filters.breed_criteria import extract_breed_criteria
+from .state import AgentState
+
+logger = logging.getLogger(__name__)
 
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai", temperature=0)
 llm_basic = init_chat_model(LLMConfig.BASIC_MODEL, model_provider="openai", temperature=0)
@@ -21,6 +27,17 @@ async def matchmaker_node(state: AgentState) -> Command:
     2. 동적 쿼리 생성 및 검색
     3. 에이전틱 선별 (Top 3)
     """
+    try:
+      return await _matchmaker_node(state)
+    except Exception:
+        logger.exception("matchmaker_node 오류 발생")
+        return Command(
+            update={"messages": [AIMessage(content=FALLBACK_SEARCH)]},
+            goto="__end__"
+        )
+
+
+async def _matchmaker_node(state: AgentState) -> Command:
     query = state["messages"][-1].content
     
     # UserDTO 초기화
