@@ -2,8 +2,12 @@
 LangGraph 워크플로우 정의 (고양이 집사 서비스)
 4노드 아키텍처: head_butler → matchmaker | liaison | care
 """
+import os
+
+import certifi
+from pymongo import MongoClient
 from langgraph.graph import StateGraph, START, END
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.mongodb import MongoDBSaver
 from langgraph.prebuilt import ToolNode
 
 from .state import AgentState
@@ -31,7 +35,8 @@ def create_zipsa_graph():
     아래 정의된 static edges는 주로 그래프 시각화 및 구조 명시용으로 작동합니다.
     """
 
-    memory = MemorySaver()
+    mongo_client = MongoClient(os.getenv("MONGO_V3_URI"), tlsCAFile=certifi.where())
+    checkpointer = MongoDBSaver(mongo_client)
     workflow = StateGraph(AgentState)
 
     # 1. 노드 등록 (Node Registration)
@@ -82,7 +87,7 @@ def create_zipsa_graph():
     # 케어팀 -> 수석 집사
     workflow.add_edge("care", "head_butler")
 
-    return workflow.compile(checkpointer=memory)
+    return workflow.compile(checkpointer=checkpointer)
 
 
 # 앱 인스턴스 생성 및 내보내기
