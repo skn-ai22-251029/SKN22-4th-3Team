@@ -28,6 +28,7 @@ class UserProfileCreateRequest(BaseModel):
     gender: Optional[str] = None
     contact: Optional[str] = None
     address: Optional[str] = None
+    avatar_url: Optional[str] = None
     preferences: UserPreferences = Field(default_factory=UserPreferences)
 
 
@@ -38,6 +39,7 @@ class UserProfileUpdateRequest(BaseModel):
     gender: Optional[str] = None
     contact: Optional[str] = None
     address: Optional[str] = None
+    avatar_url: Optional[str] = None
     preferences: Optional[UserPreferences] = None
 
 
@@ -50,6 +52,7 @@ class UserProfileResponse(BaseModel):
     gender: Optional[str] = None
     contact: Optional[str] = None
     address: Optional[str] = None
+    avatar_url: Optional[str] = None
     preferences: UserPreferences = Field(default_factory=UserPreferences)
     onboarding_completed: bool = False
     created_at: datetime

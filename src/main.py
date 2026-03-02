@@ -20,11 +20,13 @@ ZIPSA FastAPI 서버 엔트리포인트
   POST /api/v1/chat/invoke                        — 동기 채팅
   POST /api/v1/chat/stream                        — SSE 스트리밍
 """
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 load_dotenv(Path(__file__).parents[1] / ".env")
 
@@ -49,6 +51,15 @@ app.include_router(users.router)
 app.include_router(sessions.router)
 app.include_router(chat.router)
 app.include_router(meme.router)
+
+# OCI_NAMESPACE 미설정 시 로컬 mock 모드
+if not os.getenv("OCI_NAMESPACE"):
+    from src.api.routers import dev
+    app.include_router(dev.router)
+
+    static_dir = Path(__file__).parents[1] / "static"
+    static_dir.mkdir(exist_ok=True)
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
 @app.get("/health")

@@ -85,6 +85,10 @@ components:
         address:
           type: string
           nullable: true
+        avatar_url:
+          type: string
+          nullable: true
+          description: "OCI Object Storage 공개 URL. 없으면 OAuth 프로필 이미지 사용."
         preferences:
           $ref: '#/components/schemas/UserPreferences'
         onboarding_completed:
@@ -115,6 +119,9 @@ components:
         address:
           type: string
           nullable: true
+        avatar_url:
+          type: string
+          nullable: true
         preferences:
           $ref: '#/components/schemas/UserPreferences'
 
@@ -136,8 +143,21 @@ components:
         address:
           type: string
           nullable: true
+        avatar_url:
+          type: string
+          nullable: true
         preferences:
           $ref: '#/components/schemas/UserPreferences'
+
+    AvatarPresignResponse:
+      type: object
+      properties:
+        upload_url:
+          type: string
+          description: "OCI PAR URL. PUT 요청으로 파일 업로드 (5분 유효)"
+        avatar_url:
+          type: string
+          description: "업로드 완료 후 공개 조회 URL. PUT /users/me/profile에 포함"
 
     # ── 고양이 ────────────────────────────────────────
     Vaccination:
@@ -472,6 +492,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserProfileResponse'
+
+  /users/me/profile/avatar/presign:
+    post:
+      tags: [User Profile]
+      summary: 아바타 업로드 PAR URL 발급
+      description: |
+        OCI Object Storage Pre-Authenticated Request URL을 발급합니다.
+        클라이언트는 반환된 upload_url로 PUT 요청을 보내 이미지를 직접 업로드합니다.
+        업로드 완료 후 avatar_url을 PUT /users/me/profile에 포함하여 프로필을 갱신합니다.
+      responses:
+        '200':
+          description: PAR URL 발급 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvatarPresignResponse'
 
   # ── User Cats ─────────────────────────────────────────────────────────────
   /users/me/cats:

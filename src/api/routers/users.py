@@ -44,6 +44,7 @@ def _doc_to_response(doc: dict, email: str) -> UserProfileResponse:
         gender=doc.get("gender"),
         contact=doc.get("contact"),
         address=doc.get("address"),
+        avatar_url=doc.get("avatar_url"),
         preferences=doc.get("preferences", {}),
         onboarding_completed=doc.get("onboarding_completed", False),
         created_at=doc["created_at"],
@@ -84,6 +85,19 @@ async def create_profile(
     }
     await profiles.insert_one(doc)
     return _doc_to_response(doc, current_user.email)
+
+
+@router.post("/me/profile/avatar/presign")
+async def get_avatar_presign_url(
+    current_user: AuthUser = Depends(get_current_user),
+) -> dict:
+    """OCI Object Storage Pre-Authenticated Request URL 발급.
+
+    클라이언트는 반환된 upload_url로 PUT 요청을 보내 파일을 업로드합니다.
+    업로드 완료 후 avatar_url을 PUT /me/profile에 포함하여 프로필을 갱신합니다.
+    """
+    from src.api.oci_storage import generate_avatar_par
+    return await generate_avatar_par(str(current_user.user_id))
 
 
 @router.put("/me/profile", response_model=UserProfileResponse)

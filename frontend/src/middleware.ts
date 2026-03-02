@@ -1,6 +1,6 @@
 export { default } from "next-auth/middleware";
 
 export const config = {
-  // /login, /auth/*, /api/* 제외한 모든 경로 보호
-  matcher: ["/((?!login|auth|api|_next/static|_next/image|favicon.ico).*)"],
+  // 보호가 필요한 경로만 명시 (나머지는 public)
+  matcher: ["/chat/:path*", "/onboarding/:path*", "/profile/:path*"],
 };
