@@ -5,11 +5,20 @@ ZIPSA FastAPI 서버 엔트리포인트
   uvicorn src.main:app --reload --port 8000
 
 엔드포인트:
-  GET  /health                      — 헬스 체크
-  GET  /docs                        — Swagger UI
-  POST /api/v1/chat/invoke          — 동기 응답
-  POST /api/v1/chat/stream          — SSE 스트리밍
-  POST /api/v1/chat/stream_events   — astream_events v2
+  GET  /health                                    — 헬스 체크
+  GET  /docs                                      — Swagger UI
+  POST /api/v1/auth/sync                          — NextAuth 동기화 & JWT 발급
+  GET  /api/v1/auth/me                            — 현재 유저 정보
+  GET  /api/v1/users/me/profile                   — 프로필 조회
+  POST /api/v1/users/me/profile                   — 프로필 생성
+  PUT  /api/v1/users/me/profile                   — 프로필 수정
+  GET  /api/v1/users/me/sessions                  — 세션 목록
+  POST /api/v1/users/me/sessions                  — 세션 생성
+  GET  /api/v1/users/me/sessions/{id}             — 세션 상세
+  DELETE /api/v1/users/me/sessions/{id}           — 세션 삭제
+  GET  /api/v1/users/me/sessions/{id}/messages    — 메시지 목록
+  POST /api/v1/chat/invoke                        — 동기 채팅
+  POST /api/v1/chat/stream                        — SSE 스트리밍
 """
 from pathlib import Path
 
@@ -19,7 +28,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv(Path(__file__).parents[1] / ".env")
 
-from src.api.routers import auth, chat, meme, users
+from src.api.routers import auth, chat, meme, sessions, users
 
 app = FastAPI(
     title="ZIPSA API",
@@ -35,9 +44,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(chat.router)
 app.include_router(auth.router)
 app.include_router(users.router)
+app.include_router(sessions.router)
+app.include_router(chat.router)
 app.include_router(meme.router)
 
 
