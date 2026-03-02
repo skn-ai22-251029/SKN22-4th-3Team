@@ -111,6 +111,7 @@ async def stream_chat(
         full_content = ""
         rag_docs = []
         recommendations = []
+        rescue_cats = []
 
         try:
             async for event in graph_app.astream_events(
@@ -143,6 +144,9 @@ async def stream_chat(
                         if output.get("recommendations"):
                             recommendations = output["recommendations"]
                             yield f"data: {json.dumps({'type': 'recommendations', 'data': recommendations})}\n\n"
+                        if output.get("rescue_cats"):
+                            rescue_cats = output["rescue_cats"]
+                            yield f"data: {json.dumps({'type': 'rescue_cats', 'data': rescue_cats})}\n\n"
 
         except Exception:
             logger.exception("stream_chat 오류")

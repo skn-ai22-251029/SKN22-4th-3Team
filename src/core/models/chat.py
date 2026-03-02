@@ -42,6 +42,22 @@ class Recommendation(BaseModel):
     stats: Dict[str, Any] = Field(default_factory=dict)
 
 
+class RescueCat(BaseModel):
+    animal_id: str = ""
+    breed: str = ""
+    age: str = ""
+    sex: str = ""
+    neutered: str = ""
+    feature: str = ""
+    image_url: str = ""
+    shelter_name: str = ""
+    shelter_address: str = ""
+    shelter_phone: str = ""
+    notice_end_date: str = ""
+    sido: str = ""
+    sigungu: str = ""
+
+
 class ChatMessageResponse(BaseModel):
     message_id: str
     session_id: str
@@ -49,6 +65,7 @@ class ChatMessageResponse(BaseModel):
     content: str
     recommendations: List[Recommendation] = Field(default_factory=list)
     rag_docs: List[RagDoc] = Field(default_factory=list)
+    rescue_cats: List[RescueCat] = Field(default_factory=list)
     created_at: datetime
 
 
@@ -65,3 +82,4 @@ class ChatInvokeResponse(BaseModel):
     content: str
     recommendations: List[Recommendation] = Field(default_factory=list)
     rag_docs: List[RagDoc] = Field(default_factory=list)
+    rescue_cats: List[RescueCat] = Field(default_factory=list)

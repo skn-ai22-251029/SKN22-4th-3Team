@@ -1,6 +1,7 @@
 """
 리에종: 입양 및 구조 정보 전문가
 """
+import json
 import logging
 
 from langchain.chat_models import init_chat_model
@@ -52,16 +53,24 @@ async def _liaison_node(state: AgentState) -> Command:
     # 도구 실행 후 복귀 시, 도구 결과를 구조화된 출력으로 패키징
     if isinstance(last_msg, ToolMessage):
         tool_content = last_msg.content
+        rescue_cats = []
+        try:
+            tool_data = json.loads(tool_content) if isinstance(tool_content, str) else tool_content
+            rescue_cats = tool_data.get("rescue_cats", [])
+        except (json.JSONDecodeError, AttributeError):
+            logger.warning("ToolMessage content JSON 파싱 실패")
+
         specialist_result = {
             "source": "liaison",
             "type": "tool_result",
             "specialist_name": "입양/구조 비서",
             "persona": prompt_manager.get_prompt("liaison", field="persona"),
             "tool_output": tool_content,
+            "rescue_cats": rescue_cats,
             "rag_docs": [],
         }
         return Command(
-            update={"specialist_result": specialist_result},
+            update={"specialist_result": specialist_result, "rescue_cats": rescue_cats},
             goto="head_butler"
         )
 
