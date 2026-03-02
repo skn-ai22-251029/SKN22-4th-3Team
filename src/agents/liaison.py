@@ -1,17 +1,22 @@
 """
 리에종: 입양 및 구조 정보 전문가
 """
+import logging
+
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig, TokenConfig
-from src.core.token_utils import trim_history
-from langchain_core.messages import SystemMessage, ToolMessage
+from langchain_core.messages import AIMessage, SystemMessage, ToolMessage
 from langgraph.types import Command
 
-from .state import AgentState
-from .tools.animal_protection import search_abandoned_animals
+from src.core.config import LLMConfig, TokenConfig
+from src.core.fallbacks import FALLBACK_LLM, FALLBACK_TOOL
+from src.core.token_utils import trim_history
 from src.core.models.user import UserDTO
 from src.core.prompts.prompt_manager import prompt_manager
 from src.retrieval.hybrid_search import HybridRetriever
+from .state import AgentState
+from .tools.animal_protection import search_abandoned_animals
+
+logger = logging.getLogger(__name__)
 
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai")
 llm_basic = init_chat_model(LLMConfig.BASIC_MODEL, model_provider="openai")
@@ -21,6 +26,20 @@ llm_with_tools = llm_router.bind_tools([search_abandoned_animals])
 async def liaison_node(state: AgentState) -> Command:
     """
     리에종: 입양/구조 정보 전문가.
+    """
+    try:
+        return await _liaison_node(state)
+    except Exception:
+        logger.exception("liaison_node 오류 발생")
+        return Command(
+            update={"messages": [AIMessage(content=FALLBACK_TOOL)]},
+            goto="__end__"
+        )
+
+
+async def _liaison_node(state: AgentState) -> Command:
+    """
+    리에종 내부 구현.
 
     - RAG 검색 (specialist="Liaison", 입양/구조 관련 222건)
     - 도구 호출: 국가동물보호정보시스템 API (구조동물 조회)

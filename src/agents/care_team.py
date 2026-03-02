@@ -1,18 +1,22 @@
 """
 케어팀: 건강 및 행동 상담 전문가
 """
+import logging
 from typing import Literal
 
 from langchain.chat_models import init_chat_model
-from src.core.config import LLMConfig, TokenConfig
-from src.core.token_utils import trim_history
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import AIMessage, SystemMessage
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 
-from .state import AgentState
+from src.core.config import LLMConfig, TokenConfig
+from src.core.fallbacks import FALLBACK_LLM
+from src.core.token_utils import trim_history
 from src.core.prompts.prompt_manager import prompt_manager
 from src.retrieval.hybrid_search import HybridRetriever
+from .state import AgentState
+
+logger = logging.getLogger(__name__)
 
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai")
 llm_basic = init_chat_model(LLMConfig.BASIC_MODEL, model_provider="openai")
@@ -43,6 +47,20 @@ SPECIALIST_CONFIG = {
 async def care_team_node(state: AgentState) -> Command:
     """
     케어팀: 건강 + 행동 상담 통합 노드.
+    """
+    try:
+        return await _care_team_node(state)
+    except Exception:
+        logger.exception("care_team_node 오류 발생")
+        return Command(
+            update={"messages": [AIMessage(content=FALLBACK_LLM)]},
+            goto="__end__"
+        )
+
+
+async def _care_team_node(state: AgentState) -> Command:
+    """
+    케어팀 내부 구현.
 
     specialist_result에 구조화된 JSON을 반환 (AIMessage가 아님).
     집사가 최종 사용자 응답을 생성함.
