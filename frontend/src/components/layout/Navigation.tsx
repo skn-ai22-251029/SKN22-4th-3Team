@@ -1,0 +1,119 @@
+"use client";
+
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { ChevronDown, User, LogOut, Cat, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+interface NavigationProps {
+  onMenuClick?: () => void;
+  fullWidth?: boolean;
+  hideNewChat?: boolean;
+}
+
+export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false }: NavigationProps) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const isLoggedIn = status === "authenticated";
+  const nickname =
+    (session?.user as { nickname?: string } | undefined)?.nickname ??
+    session?.user?.name ??
+    "집사님";
+
+  return (
+    <nav className="w-full h-16 border-b-2 border-gray-300 bg-white">
+      <div className={`h-full flex items-center justify-between ${fullWidth ? "px-6" : "max-w-[1440px] mx-auto px-16"}`}>
+        {/* Left: Hamburger + Logo */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onMenuClick}
+            className="text-gray-900 hover:bg-gray-100 p-2 rounded-lg transition-colors"
+          >
+            <Menu className="w-6 h-6" strokeWidth={2} />
+          </button>
+          <button onClick={() => router.push("/")} className="text-2xl font-bold text-gray-900 tracking-tight">
+            ZIPSA
+          </button>
+        </div>
+
+        {/* Right */}
+        <div className="flex items-center gap-4">
+          {isLoggedIn ? (
+            <>
+              {!hideNewChat && (
+                <Button
+                  onClick={() => router.push("/chat")}
+                  className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-6"
+                >
+                  새 채팅
+                </Button>
+              )}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    <div className="w-8 h-8 rounded-full bg-gray-300 border-2 border-gray-400 flex items-center justify-center">
+                      <User className="w-4 h-4 text-gray-600" strokeWidth={2} />
+                    </div>
+                    <span className="text-gray-900 font-medium">{nickname}</span>
+                    <ChevronDown className="w-4 h-4 text-gray-600" strokeWidth={2} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-[200px] border-2 border-gray-300 bg-white shadow-lg p-0">
+                  <div className="flex items-center gap-3 px-4 h-[44px] border-b-2 border-gray-300">
+                    <div className="w-8 h-8 rounded-full bg-gray-300 border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-gray-600" strokeWidth={2} />
+                    </div>
+                    <div className="flex flex-col overflow-hidden">
+                      <span className="text-sm font-medium text-gray-900 truncate">{nickname}</span>
+                      <span className="text-xs text-gray-500 truncate">{session?.user?.email}</span>
+                    </div>
+                  </div>
+                  <DropdownMenuItem
+                    onClick={() => router.push("/chat")}
+                    className="cursor-pointer h-[44px] px-4 flex items-center gap-3 hover:bg-gray-100"
+                  >
+                    <Cat className="w-5 h-5 text-gray-600" strokeWidth={1.5} />
+                    <span className="text-gray-900">채팅</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-gray-300 h-[2px] my-0" />
+                  <DropdownMenuItem
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="cursor-pointer h-[44px] px-4 flex items-center gap-3 hover:bg-gray-100"
+                  >
+                    <LogOut className="w-5 h-5 text-gray-600" strokeWidth={1.5} />
+                    <span className="text-gray-700">로그아웃</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <>
+              {!hideNewChat && (
+                <Button
+                  onClick={() => router.push("/chat")}
+                  className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-6"
+                >
+                  새 채팅
+                </Button>
+              )}
+              <Button
+                onClick={() => router.push("/login")}
+                variant="outline"
+                className="border-2 border-gray-900 text-gray-900 hover:bg-gray-100 rounded-full px-6"
+              >
+                로그인
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}

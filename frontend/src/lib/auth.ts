@@ -22,8 +22,8 @@ function KakaoProvider(options: OAuthUserConfig<Record<string, unknown>>): OAuth
             grant_type: "authorization_code",
             client_id: options.clientId,
             client_secret: options.clientSecret,
-            redirect_uri: params.redirect_uri!,
-            code: params.code!,
+            redirect_uri: params.redirect_uri as string,
+            code: params.code as string,
           }).toString(),
         });
         const tokens = await res.json();
@@ -74,8 +74,8 @@ function NaverProvider(options: OAuthUserConfig<Record<string, unknown>>): OAuth
             grant_type: "authorization_code",
             client_id: options.clientId,
             client_secret: options.clientSecret,
-            redirect_uri: params.redirect_uri!,
-            code: params.code!,
+            redirect_uri: params.redirect_uri as string,
+            code: params.code as string,
           }).toString(),
         });
         const tokens = await res.json();
