@@ -9,6 +9,7 @@ import { Navigation } from "@/components/layout/Navigation";
 import { GlobalDrawer } from "@/components/layout/GlobalDrawer";
 import { BreedPopover } from "@/components/BreedPopover";
 import { CatCard } from "@/components/chat/CatCard";
+import { RescueCatCard } from "@/components/chat/RescueCatCard";
 import {
   getZipsaToken,
   createSession,
@@ -17,6 +18,7 @@ import {
   type ChatMessage,
   type Recommendation,
   type RagDoc,
+  type RescueCat,
 } from "@/lib/api";
 import { useZipsaStore } from "@/store/zipsa";
 
@@ -74,7 +76,11 @@ export default function ChatSessionPage() {
   const [streamContent, setStreamContent] = useState("");
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [ragDocs, setRagDocs] = useState<RagDoc[]>([]);
+  const [rescueCats, setRescueCats] = useState<RescueCat[]>([]);
   const [selectedBreed, setSelectedBreed] = useState(0);
+  const [selectedRescue, setSelectedRescue] = useState(0);
+  // 0 = breed panel, 1 = rescue panel
+  const [panelMode, setPanelMode] = useState<"breed" | "rescue">("breed");
   const [sessionTitle, setSessionTitle] = useState("새 대화");
   const [creating, setCreating] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -93,8 +99,15 @@ export default function ChatSessionPage() {
         setMessages(msgs);
         const lastAI = [...msgs].reverse().find((m) => m.role === "ai");
         if (lastAI) {
-          if (lastAI.recommendations?.length) setRecommendations(lastAI.recommendations);
+          if (lastAI.recommendations?.length) {
+            setRecommendations(lastAI.recommendations);
+            setPanelMode("breed");
+          }
           if (lastAI.rag_docs?.length) setRagDocs(lastAI.rag_docs);
+          if (lastAI.rescue_cats?.length) {
+            setRescueCats(lastAI.rescue_cats);
+            setPanelMode("rescue");
+          }
         }
         const firstHuman = msgs.find((m) => m.role === "human");
         if (firstHuman) setSessionTitle(firstHuman.content.slice(0, 30));
@@ -143,6 +156,7 @@ export default function ChatSessionPage() {
       content: text,
       recommendations: [],
       rag_docs: [],
+      rescue_cats: [],
       created_at: new Date().toISOString(),
     };
     setMessages((prev) => [...prev, userMsg]);
@@ -152,6 +166,7 @@ export default function ChatSessionPage() {
     let fullContent = "";
     let newRecs: Recommendation[] = [];
     let newDocs: RagDoc[] = [];
+    let newRescueCats: RescueCat[] = [];
 
     try {
       for await (const event of streamChat(token, activeSessionId, text, profile)) {
@@ -162,9 +177,15 @@ export default function ChatSessionPage() {
           newRecs = event.data as Recommendation[];
           setRecommendations(newRecs);
           setSelectedBreed(0);
+          setPanelMode("breed");
         } else if (event.type === "rag_docs" && Array.isArray(event.data)) {
           newDocs = event.data as RagDoc[];
           setRagDocs(newDocs);
+        } else if (event.type === "rescue_cats" && Array.isArray(event.data)) {
+          newRescueCats = event.data as RescueCat[];
+          setRescueCats(newRescueCats);
+          setSelectedRescue(0);
+          setPanelMode("rescue");
         }
       }
     } catch (err) {
@@ -177,6 +198,7 @@ export default function ChatSessionPage() {
         content: fullContent,
         recommendations: newRecs,
         rag_docs: newDocs,
+        rescue_cats: newRescueCats,
         created_at: new Date().toISOString(),
       };
       setMessages((prev) => [...prev, aiMsg]);
@@ -309,8 +331,36 @@ export default function ChatSessionPage() {
             </div>
           )}
 
+          {/* 패널 모드 전환 탭 (둘 다 있을 때만) */}
+          {recommendations.length > 0 && rescueCats.length > 0 && (
+            <div className="flex-shrink-0 border-b-2 border-gray-300 bg-white">
+              <div className="flex">
+                <button
+                  onClick={() => setPanelMode("breed")}
+                  className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                    panelMode === "breed"
+                      ? "text-gray-900 border-gray-900"
+                      : "text-gray-500 border-transparent hover:text-gray-700"
+                  }`}
+                >
+                  추천 품종
+                </button>
+                <button
+                  onClick={() => setPanelMode("rescue")}
+                  className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                    panelMode === "rescue"
+                      ? "text-gray-900 border-gray-900"
+                      : "text-gray-500 border-transparent hover:text-gray-700"
+                  }`}
+                >
+                  구조묘 ({rescueCats.length})
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* 품종 탭 + CatCard */}
-          {recommendations.length > 0 ? (
+          {panelMode === "breed" && recommendations.length > 0 ? (
             <>
               <div className="flex-shrink-0 border-b-2 border-gray-300 bg-white">
                 <div className="flex">
@@ -331,6 +381,29 @@ export default function ChatSessionPage() {
               </div>
               <div className="flex-1 p-4 overflow-y-auto">
                 <CatCard breed={recommendations[selectedBreed]} />
+              </div>
+            </>
+          ) : panelMode === "rescue" && rescueCats.length > 0 ? (
+            <>
+              <div className="flex-shrink-0 border-b-2 border-gray-300 bg-white">
+                <div className="flex overflow-x-auto">
+                  {rescueCats.map((cat, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedRescue(i)}
+                      className={`flex-shrink-0 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                        selectedRescue === i
+                          ? "text-gray-900 border-gray-900"
+                          : "text-gray-500 border-transparent hover:text-gray-700"
+                      }`}
+                    >
+                      {cat.breed || `#${i + 1}`}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex-1 p-4 overflow-y-auto">
+                <RescueCatCard cat={rescueCats[selectedRescue]} />
               </div>
             </>
           ) : (
