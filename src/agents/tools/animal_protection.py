@@ -68,10 +68,8 @@ async def search_abandoned_animals(
     upr_cd = SIDO_CODES.get(sido)
     if not upr_cd:
         return {
-            "success": False,
-            "total": 0,
-            "animals": [],
-            "message": f"'{sido}'에 해당하는 시도 코드를 찾을 수 없습니다. "
+            "rescue_cats": [],
+            "summary": f"'{sido}'에 해당하는 시도 코드를 찾을 수 없습니다. "
                        f"가능한 값: {', '.join(SIDO_CODES.keys())}",
         }
 
@@ -88,10 +86,8 @@ async def search_abandoned_animals(
         org_cd = sigungu_map.get(sigungu)
         if not org_cd:
             return {
-                "success": False,
-                "total": 0,
-                "animals": [],
-                "message": f"'{sigungu}'에 해당하는 시군구 코드를 찾을 수 없습니다. "
+                "rescue_cats": [],
+                "summary": f"'{sigungu}'에 해당하는 시군구 코드를 찾을 수 없습니다. "
                            f"가능한 값: {', '.join(sigungu_map.keys())}",
             }
         params["org_cd"] = org_cd
@@ -106,10 +102,8 @@ async def search_abandoned_animals(
     except Exception as e:
         logger.exception("유기동물 API 호출 실패")
         return {
-            "success": False,
-            "total": 0,
-            "animals": [],
-            "message": f"API 호출 중 오류가 발생했습니다: {e}",
+            "rescue_cats": [],
+            "summary": f"API 호출 중 오류가 발생했습니다: {e}",
         }
 
     body = resp.get("body", {})
@@ -118,57 +112,52 @@ async def search_abandoned_animals(
 
     if not items or not items.get("item"):
         return {
-            "success": True,
-            "total": 0,
-            "animals": [],
-            "message": "조건에 맞는 보호 동물이 없습니다.",
+            "rescue_cats": [],
+            "summary": "조건에 맞는 보호 동물이 없습니다.",
         }
 
     raw_items = items["item"]
     if isinstance(raw_items, dict):
         raw_items = [raw_items]
 
-    animals = []
+    rescue_cats = []
     for item in raw_items:
-        animal = {
-            "desertionNo": item.get("desertionNo", ""),
+        cat = {
+            "animal_id": item.get("desertionNo", ""),
             "breed": item.get("kindNm", item.get("kindCd", "")),
-            "color": item.get("colorCd", ""),
             "age": item.get("age", ""),
-            "weight": item.get("weight", ""),
             "sex": {"M": "수컷", "F": "암컷", "Q": "미상"}.get(
                 item.get("sexCd", ""), "미상"
             ),
-            "neuter": {"Y": "중성화 완료", "N": "미완료", "U": "미상"}.get(
+            "neutered": {"Y": "중성화 완료", "N": "미완료", "U": "미상"}.get(
                 item.get("neuterYn", ""), "미상"
             ),
             "feature": item.get("specialMark", ""),
-            "image": item.get("popfile1", item.get("popfile2", "")),
+            "image_url": item.get("popfile1", item.get("popfile2", "")),
             "shelter_name": item.get("careNm", ""),
             "shelter_address": item.get("careAddr", ""),
-            "shelter_tel": item.get("careTel", ""),
-            "notice_period": f"{item.get('noticeSdt', '')}~{item.get('noticeEdt', '')}",
-            "happen_place": item.get("happenPlace", ""),
+            "shelter_phone": item.get("careTel", ""),
+            "notice_end_date": item.get("noticeEdt", ""),
+            "sido": sido,
+            "sigungu": sigungu,
         }
-        
+
         # 품종 필터링
-        if breed and breed not in animal["breed"]:
+        if breed and breed not in cat["breed"]:
             continue
-            
+
         # 보호소 키워드 필터링 (보호소 이름 또는 주소에 키워드가 포함된 경우)
         if shelter_keyword:
-            in_name = shelter_keyword in animal["shelter_name"]
-            in_addr = shelter_keyword in animal["shelter_address"]
+            in_name = shelter_keyword in cat["shelter_name"]
+            in_addr = shelter_keyword in cat["shelter_address"]
             if not (in_name or in_addr):
                 continue
-            
-        animals.append(animal)
-        if len(animals) >= 5:
+
+        rescue_cats.append(cat)
+        if len(rescue_cats) >= 5:
             break
 
     return {
-        "success": True,
-        "total": total,
-        "animals": animals,
-        "message": f"총 {total}건 중 {len(animals)}건을 표시합니다.",
+        "rescue_cats": rescue_cats,
+        "summary": f"총 {total}건 중 {len(rescue_cats)}건을 표시합니다.",
     }

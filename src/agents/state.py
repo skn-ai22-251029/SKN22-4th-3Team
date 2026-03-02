@@ -23,6 +23,7 @@ class AgentState(Dict[str, Any]):
     # 내부: 전문가 → 집사 구조화된 결과
     specialist_result: Optional[Dict[str, Any]]
 
-    # UI용 결과 (품종 카드, RAG 출처)
+    # UI용 결과 (품종 카드, RAG 출처, 구조묘 카드)
     recommendations: Optional[List[Dict[str, Any]]]
     rag_docs: Optional[List[Dict[str, Any]]]
+    rescue_cats: Optional[List[Dict[str, Any]]]

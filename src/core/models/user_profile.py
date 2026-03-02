@@ -51,25 +51,21 @@ class UserProfile(BaseModel):
         """
         constraints = {}
         
-        # 알레르기: 건강 필수 사항
+        # 알레르기: 건강 필수 사항 — hypoallergenic (15종, 22%)
         if self.allergy:
             constraints["hypoallergenic"] = 1
-        
-        # 자녀: 안전 필수 사항
-        if self.has_children or "어린 아이" in self.companion:
-            constraints["child_friendly"] = 4
-        
-        # 강아지: 행동 호환성 사항
-        if self.has_dog or "강아지" in self.companion:
-            constraints["dog_friendly"] = 4
 
-        # 다묘 가정: 고양이 사회성 사항
+        # 다묘 가정: 최소 사회성 보장 — social_needs >= 3 (실제 min=3이므로 사실상 모두 통과)
         if self.has_cat or "고양이 있음" in self.companion:
             constraints["social_needs"] = {"$gte": 3}
 
-        # 장시간 부재: 독립적인 품종 필터
+        # 장시간 부재: 독립적인 품종 — social_needs <= 3 (min=3이므로 social_needs==3 품종만)
         if self.work_style in ("4~8시간", "8시간 이상"):
             constraints["social_needs"] = {"$lte": 3}
+
+        # 제외 필드 (분화 없음, 필터 무의미):
+        # - child_friendly: 85%가 >= 4 → 컨텍스트 문자열로 LLM 선별에만 반영
+        # - dog_friendly: 평균 4.6 → 동일
 
         return constraints
     

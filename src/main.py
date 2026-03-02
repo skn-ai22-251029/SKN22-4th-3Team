@@ -17,6 +17,11 @@ ZIPSA FastAPI 서버 엔트리포인트
   GET  /api/v1/users/me/sessions/{id}             — 세션 상세
   DELETE /api/v1/users/me/sessions/{id}           — 세션 삭제
   GET  /api/v1/users/me/sessions/{id}/messages    — 메시지 목록
+  GET  /api/v1/users/me/cats                      — 내 고양이 목록
+  POST /api/v1/users/me/cats                      — 고양이 등록
+  GET  /api/v1/users/me/cats/{id}                 — 고양이 상세
+  PUT  /api/v1/users/me/cats/{id}                 — 고양이 수정
+  DELETE /api/v1/users/me/cats/{id}               — 고양이 삭제
   POST /api/v1/chat/invoke                        — 동기 채팅
   POST /api/v1/chat/stream                        — SSE 스트리밍
 """
@@ -30,7 +35,7 @@ from fastapi.staticfiles import StaticFiles
 
 load_dotenv(Path(__file__).parents[1] / ".env")
 
-from src.api.routers import auth, chat, meme, sessions, users
+from src.api.routers import auth, cats, chat, meme, sessions, users
 
 app = FastAPI(
     title="ZIPSA API",
@@ -48,6 +53,7 @@ app.add_middleware(
 
 app.include_router(auth.router)
 app.include_router(users.router)
+app.include_router(cats.router)
 app.include_router(sessions.router)
 app.include_router(chat.router)
 app.include_router(meme.router)

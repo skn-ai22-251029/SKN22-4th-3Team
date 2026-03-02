@@ -76,6 +76,13 @@ async def _matchmaker_node(state: AgentState) -> Command:
     if filter_result and filter_result.mongo_filter:
         search_filters.update(filter_result.mongo_filter)
 
+    # RECOMMEND 모드: user_profile hard constraints 적용 (안전 필수 제약, LLM 우회 불가)
+    # allergy, has_children, has_dog, has_cat, work_style 기반 MongoDB 필터를 강제 적용
+    if intent.category == "RECOMMEND":
+        hard_constraints = user.get_hard_constraints()
+        for k, v in hard_constraints.items():
+            search_filters[f"stats.{k}"] = v
+
     retriever = HybridRetriever(collection_name="care_guides")
     raw_results = await retriever.search(
         search_query,
@@ -171,6 +178,8 @@ async def _matchmaker_node(state: AgentState) -> Command:
             clean_r["tags"] = [f"#{t}" for t in traits[:4]] if traits else []
         results.append(clean_r)
 
+    # 선별된 top_results 기준으로만 rag_docs 생성 (raw_results 전체 X)
+    # → head_butler LLM이 10개가 아닌 3개 품종 이름만 보게 되어 답변 일관성 확보
     rag_docs = [
         {
             "title": r.get("name_ko", ""),
@@ -178,7 +187,7 @@ async def _matchmaker_node(state: AgentState) -> Command:
             "source": "TheCatAPI, Wikipedia",
             "url": r.get("source_url") or r.get("source_urls", [""])[0] if r.get("source_urls") else "",
         }
-        for r in raw_results
+        for r in top_results
     ]
 
     reasoning_text = f"**[{intent.category}]** 모드로 검색했습니다.\n\n[선별 이유]\n{selection.reasoning}"

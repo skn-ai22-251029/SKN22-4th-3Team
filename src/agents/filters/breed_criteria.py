@@ -8,8 +8,8 @@ from src.utils.mongodb import MongoDBManager
 llm_router = init_chat_model(LLMConfig.ROUTER_MODEL, model_provider="openai", temperature=0)
 
 # 실제 데이터 기반 threshold 정의 (67종 분포 기준)
-# - affection_level, child_friendly, adaptability: 분화 없음 → 제외
-# - social_needs: 실제 min=3, "독립적인" 기준 <= 3
+# - affection_level (97%가 4-5), child_friendly (85%가 >=4), adaptability (평균 4.8): 분화 없음 → 제외
+# - social_needs: 실제 min=3, "독립적인" 기준 <= 3 (energy_level <= 2는 4종뿐 → 미사용)
 # - energy_level: "얌전한" 기준 <= 3 (>= 4: 61%, <= 3: 39%)
 _SYSTEM_PROMPT = """사용자의 발화에서 고양이 품종 선호 조건을 추출하세요.
 
@@ -18,6 +18,7 @@ _SYSTEM_PROMPT = """사용자의 발화에서 고양이 품종 선호 조건을 
 - energy_level: 활동성 (1-5, 높을수록 활발)
 - vocalisation: 울음소리 빈도 (1-5)
 - grooming: 그루밍 필요도 (1-5)
+- intelligence: 지능 (1-5, 높을수록 영리함)
 - social_needs: 사회적 욕구 (3-5, 낮을수록 독립적)
 - hypoallergenic: 저알레르기 (0 또는 1)
 - lap: 무릎냥이 여부 (0 또는 1)
@@ -26,12 +27,15 @@ _SYSTEM_PROMPT = """사용자의 발화에서 고양이 품종 선호 조건을 
 - "털 안 빠지는", "털 적은" → shedding_level <= 2
 - "활발한", "에너지 넘치는" → energy_level >= 4
 - "얌전한", "조용한", "차분한" → energy_level <= 3
+- "초보자", "처음 키우는", "입문용" → energy_level <= 3, grooming <= 3
 - "소리 안 내는", "울음 적은" → vocalisation <= 2
 - "혼자 있어도 괜찮은", "독립적인" → social_needs <= 3
 - "알레르기" → hypoallergenic == 1
 - "무릎냥이" → lap == 1
 - "그루밍 적게", "관리 쉬운" → grooming <= 2
+- "영리한", "훈련 가능한", "지능 높은" → intelligence >= 4
 
+주의: energy_level <= 2는 데이터상 4종뿐이므로 사용하지 마세요. 최솟값은 <= 3입니다.
 조건 형식: "shedding_level <= 2", "energy_level >= 4", "hypoallergenic == 1"
 조건이 없으면 빈 리스트를 반환하세요."""
 
