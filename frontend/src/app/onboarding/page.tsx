@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Cat, Home, Building, DoorClosed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createProfile, getZipsaToken } from "@/lib/api";
+import { createProfile, updateProfile, getZipsaToken } from "@/lib/api";
 
 const steps = [
   { number: 1, title: "나 소개" },
@@ -79,22 +79,33 @@ export default function OnboardingPage() {
     setSubmitting(true);
     setError(null);
 
+    const profileData = {
+      nickname: nickname || null,
+      preferences: {
+        housing: HOUSING_MAP[housing] ?? "apartment",
+        activity: ACTIVITY_MAP[activity] ?? "medium",
+        experience: EXPERIENCE_MAP[experience] ?? "beginner",
+        work_style: WORK_STYLE_MAP[workStyle] ?? null,
+        allergy,
+        has_children: companions.includes("어린 아이"),
+        has_dog: companions.includes("강아지"),
+        has_cat: companions.includes("고양이 있음"),
+        traits,
+        companion: livesAlone ? [] : companions,
+      },
+    };
+
     try {
-      await createProfile(token, {
-        nickname: nickname || null,
-        preferences: {
-          housing: HOUSING_MAP[housing] ?? "apartment",
-          activity: ACTIVITY_MAP[activity] ?? "medium",
-          experience: EXPERIENCE_MAP[experience] ?? "beginner",
-          work_style: WORK_STYLE_MAP[workStyle] ?? null,
-          allergy,
-          has_children: companions.includes("어린 아이"),
-          has_dog: companions.includes("강아지"),
-          has_cat: companions.includes("고양이 있음"),
-          traits,
-          companion: livesAlone ? [] : companions,
-        },
-      });
+      try {
+        await createProfile(token, profileData);
+      } catch (err) {
+        // 이미 프로필이 있으면 (409) PUT으로 업데이트
+        if ((err as { status?: number }).status === 409) {
+          await updateProfile(token, profileData);
+        } else {
+          throw err;
+        }
+      }
       router.replace("/");
     } catch {
       setError("프로필 저장에 실패했습니다. 다시 시도해주세요.");
@@ -107,10 +118,10 @@ export default function OnboardingPage() {
       {/* Progress Stepper */}
       <div className="w-full border-b-2 border-gray-300 bg-gray-50 py-8">
         <div className="max-w-[900px] mx-auto px-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start">
             {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center flex-1">
-                <div className="flex flex-col items-center">
+              <Fragment key={step.number}>
+                <div className="flex flex-col items-center flex-shrink-0">
                   <div
                     className={`w-12 h-12 rounded-full border-2 flex items-center justify-center font-bold ${
                       step.number < currentStep
@@ -137,13 +148,12 @@ export default function OnboardingPage() {
 
                 {index < steps.length - 1 && (
                   <div
-                    className={`flex-1 h-[2px] mx-2 ${
+                    className={`flex-1 h-[2px] mx-2 mt-6 ${
                       step.number < currentStep ? "bg-gray-900" : "bg-gray-300"
                     }`}
-                    style={{ marginTop: "-24px" }}
                   />
                 )}
-              </div>
+              </Fragment>
             ))}
           </div>
         </div>

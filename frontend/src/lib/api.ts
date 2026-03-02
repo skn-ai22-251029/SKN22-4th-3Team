@@ -70,10 +70,25 @@ export interface UserProfileResponse {
   user_id: string;
   email: string;
   nickname?: string | null;
+  age?: number | null;
+  gender?: string | null;
+  contact?: string | null;
+  address?: string | null;
+  avatar_url?: string | null;
   preferences: UserPreferences;
   onboarding_completed: boolean;
   created_at: string;
   updated_at: string;
+}
+
+export interface UserProfileUpdateRequest {
+  nickname?: string | null;
+  age?: number | null;
+  gender?: string | null;
+  contact?: string | null;
+  address?: string | null;
+  avatar_url?: string | null;
+  preferences?: Partial<UserPreferences>;
 }
 
 export async function getProfile(token: string): Promise<UserProfileResponse> {
@@ -96,6 +111,33 @@ export async function createProfile(
     },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error(`createProfile failed: ${res.status}`);
+  if (!res.ok) throw Object.assign(new Error(`createProfile failed: ${res.status}`), { status: res.status });
+  return res.json();
+}
+
+export async function updateProfile(
+  token: string,
+  data: UserProfileUpdateRequest,
+): Promise<UserProfileResponse> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error(`updateProfile failed: ${res.status}`);
+  return res.json();
+}
+
+export async function getAvatarPresignUrl(
+  token: string,
+): Promise<{ upload_url: string; avatar_url: string }> {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/profile/avatar/presign`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getAvatarPresignUrl failed: ${res.status}`);
   return res.json();
 }
