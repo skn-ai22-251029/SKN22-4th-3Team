@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from langchain_core.messages import AIMessage, HumanMessage
 from motor.motor_asyncio import AsyncIOMotorClient
 
+import src.agents.graph as graph_module
 from src.api.dependencies import get_current_user
 from src.core.config import AuthConfig
 from src.core.models.auth import AuthUser
@@ -31,9 +32,6 @@ def _get_sessions_col():
     return client[AuthConfig.USER_DB_NAME]["chat_sessions"]
 
 
-def _get_checkpoints_col():
-    client = AsyncIOMotorClient(os.getenv("MONGO_V3_URI"), tlsCAFile=certifi.where())
-    return client["zipsa"]["checkpoints"]
 
 
 def _doc_to_response(doc: dict) -> ChatSessionResponse:
@@ -105,9 +103,10 @@ async def delete_session(
     result = await col.delete_one({"_id": ObjectId(session_id), "user_id": current_user.user_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="세션을 찾을 수 없습니다.")
-    # LangGraph 체크포인트 삭제
-    checkpoints = _get_checkpoints_col()
-    await checkpoints.delete_many({"thread_id": session_id})
+    # LangGraph 체크포인트 삭제 (checkpoints + checkpoint_writes)
+    checkpointer = graph_module.app.checkpointer
+    await checkpointer.collection.delete_many({"thread_id": session_id})
+    await checkpointer.writes.delete_many({"thread_id": session_id})
 
 
 @router.get("/{session_id}/messages", response_model=list[ChatMessageResponse])
@@ -122,8 +121,7 @@ async def list_messages(
     if not session:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="세션을 찾을 수 없습니다.")
 
-    from src.agents.graph import app as graph_app
-    state = await graph_app.aget_state({"configurable": {"thread_id": session_id}})
+    state = await graph_module.app.aget_state({"configurable": {"thread_id": session_id}})
     if not state or not state.values:
         return []
 
