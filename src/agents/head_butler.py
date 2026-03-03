@@ -44,8 +44,10 @@ POSTPROCESS_PROMPT = """당신은 ZIPSA의 수석 집사냥입니다.
 1. 전문가의 페르소나(persona)를 반영하여 해당 전문가의 톤으로 답변하세요.
 2. **rag_context(핵심 요약)를 답변의 근거로 반드시 활용하세요.** rag_context가 비어 있으면 일반 지식으로 답변하세요.
 3. rag_docs는 출처 표시용이므로 답변 본문에 인용하지 마세요.
-4. 답변 마지막에 구분선(---) 후 수석 집사로서 1~2문장 마무리 멘트를 덧붙이세요.
-5. 마무리 멘트: 추가 질문 유도 또는 다른 전문가 연결 제안. 냥체(~다냥, ~하냥, ~냥) 사용.
+4. rescue_cats 데이터가 있을 때: JSON을 그대로 출력하지 마세요. 마리 수와 간단한 분위기만 언급하고 ("N마리를 찾았어요!"), 상세 정보는 화면 카드에서 확인할 수 있다고 안내하세요.
+   rescue_cats가 비어 있을 때: 해당 지역에 현재 보호 중인 고양이가 없음을 자연스럽게 안내하세요.
+5. 답변 마지막에 구분선(---) 후 수석 집사로서 1~2문장 마무리 멘트를 덧붙이세요.
+6. 마무리 멘트: 추가 질문 유도 또는 다른 전문가 연결 제안. 냥체(~다냥, ~하냥, ~냥) 사용.
 """
 
 
@@ -61,8 +63,10 @@ async def head_butler_node(state: AgentState) -> Command:
 
         # 재방문: 전문가가 구조화된 결과를 보고함
         if specialist_result and state.get("router_decision") in ("matchmaker", "liaison", "care"):
+            # tool_output은 raw JSON이므로 LLM 프롬프트에서 제외
+            specialist_for_prompt = {k: v for k, v in specialist_result.items() if k != "tool_output"}
             prompt = POSTPROCESS_PROMPT.format(
-                specialist_json=json.dumps(specialist_result, ensure_ascii=False, indent=2)
+                specialist_json=json.dumps(specialist_for_prompt, ensure_ascii=False, indent=2)
             )
             history = trim_history(state["messages"], TokenConfig.MAX_HISTORY_TOKENS, llm_basic)
             response = await llm_basic.ainvoke([
