@@ -10,6 +10,7 @@ interface ZipsaState {
   addSession: (session: ChatSession) => void;
   removeSession: (sessionId: string) => void;
   updateSession: (sessionId: string, updates: Partial<ChatSession>) => void;
+  reset: () => void;
 
   loadProfile: (token: string) => Promise<void>;
   loadSessions: (token: string) => Promise<void>;
@@ -21,6 +22,7 @@ export const useZipsaStore = create<ZipsaState>((set) => ({
 
   setProfile: (profile) => set({ profile }),
   setSessions: (sessions) => set({ sessions }),
+  reset: () => set({ profile: null, sessions: [] }),
 
   addSession: (session) =>
     set((state) => ({ sessions: [session, ...state.sessions] })),

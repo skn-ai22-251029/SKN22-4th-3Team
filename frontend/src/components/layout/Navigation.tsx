@@ -24,6 +24,7 @@ export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false
   const router = useRouter();
   const isLoggedIn = status === "authenticated";
   const profile = useZipsaStore((s) => s.profile);
+  const resetStore = useZipsaStore((s) => s.reset);
 
   // OAuth 기본값
   const rawName = session?.user?.name;
@@ -107,7 +108,7 @@ export function Navigation({ onMenuClick, fullWidth = false, hideNewChat = false
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-gray-300 h-[2px] my-0" />
                   <DropdownMenuItem
-                    onClick={() => signOut({ callbackUrl: "/" })}
+                    onClick={() => { resetStore(); signOut({ callbackUrl: "/" }); }}
                     className="cursor-pointer h-[44px] px-4 flex items-center gap-3 hover:bg-gray-100"
                   >
                     <LogOut className="w-5 h-5 text-gray-600" strokeWidth={1.5} />
