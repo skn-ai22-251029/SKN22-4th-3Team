@@ -5,9 +5,9 @@ LangGraph 워크플로우 정의 (고양이 집사 서비스)
 import os
 
 import certifi
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import MongoClient
 from langgraph.graph import StateGraph, START, END
-from langgraph.checkpoint.mongodb.aio import AsyncMongoDBSaver
+from langgraph.checkpoint.mongodb import MongoDBSaver
 from langgraph.prebuilt import ToolNode
 
 from .state import AgentState
@@ -37,9 +37,8 @@ async def create_zipsa_graph():
     참고: 각 노드는 Command(goto=...)를 사용하여 동적 라우팅을 수행하므로,
     아래 정의된 static edges는 주로 그래프 시각화 및 구조 명시용으로 작동합니다.
     """
-    motor_client = AsyncIOMotorClient(os.getenv("MONGO_V3_URI"), tlsCAFile=certifi.where())
-    checkpointer = AsyncMongoDBSaver(motor_client)
-    await checkpointer.setup()  # checkpoint 컬렉션 인덱스 생성
+    mongo_client = MongoClient(os.getenv("MONGO_V3_URI"), tlsCAFile=certifi.where())
+    checkpointer = MongoDBSaver(mongo_client)
 
     workflow = StateGraph(AgentState)
 

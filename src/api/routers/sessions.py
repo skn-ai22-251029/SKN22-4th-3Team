@@ -103,10 +103,8 @@ async def delete_session(
     result = await col.delete_one({"_id": ObjectId(session_id), "user_id": current_user.user_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="세션을 찾을 수 없습니다.")
-    # LangGraph 체크포인트 삭제 (checkpoints + checkpoint_writes)
-    checkpointer = graph_module.app.checkpointer
-    await checkpointer.collection.delete_many({"thread_id": session_id})
-    await checkpointer.writes.delete_many({"thread_id": session_id})
+    # LangGraph 체크포인트 삭제
+    await graph_module.app.checkpointer.adelete_thread(session_id)
 
 
 @router.get("/{session_id}/messages", response_model=list[ChatMessageResponse])
