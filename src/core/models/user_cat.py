@@ -23,6 +23,7 @@ class UserCatCreateRequest(BaseModel):
     breed_name_ko: str = ""
     breed_name_en: str = ""
     profile_image_url: Optional[str] = None
+    meme_text: Optional[str] = None
     health: Optional[UserCatHealth] = None
 
 
@@ -33,6 +34,7 @@ class UserCatUpdateRequest(BaseModel):
     breed_name_ko: Optional[str] = None
     breed_name_en: Optional[str] = None
     profile_image_url: Optional[str] = None
+    meme_text: Optional[str] = None
     health: Optional[UserCatHealth] = None
 
 
@@ -45,6 +47,7 @@ class UserCatResponse(BaseModel):
     breed_name_ko: str = ""
     breed_name_en: str = ""
     profile_image_url: Optional[str] = None
+    meme_text: Optional[str] = None
     health: UserCatHealth = Field(default_factory=UserCatHealth)
     created_at: datetime
     updated_at: datetime
