@@ -13,7 +13,7 @@ function AddCatCard({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="border-2 border-dashed border-gray-400 rounded-lg p-6 bg-white hover:bg-gray-50 transition-colors min-h-[320px] flex items-center justify-center"
+      className="border-2 border-dashed border-gray-400 rounded-lg p-6 bg-white hover:bg-gray-50 transition-colors min-h-[320px] flex items-center justify-center w-full"
     >
       <div className="text-center space-y-3">
         <div className="w-16 h-16 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center mx-auto">
@@ -50,7 +50,7 @@ export default function MyCatsPage() {
           <h2 className="text-3xl font-bold text-gray-900">내 고양이</h2>
           <Button
             variant="outline"
-            className="border-2 border-gray-900 text-gray-900 hover:bg-gray-100 gap-2"
+            className="border-2 border-gray-900 bg-white text-gray-900 hover:bg-gray-100 gap-2"
             onClick={() => router.push("/my-cats/new")}
           >
             <Plus className="w-5 h-5" />

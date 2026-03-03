@@ -24,6 +24,7 @@ ZIPSA FastAPI 서버 엔트리포인트
   DELETE /api/v1/users/me/cats/{id}               — 고양이 삭제
   POST /api/v1/chat/invoke                        — 동기 채팅
   POST /api/v1/chat/stream                        — SSE 스트리밍
+  POST /api/v1/meme/analyze                       — Vision AI 밈 생성
 """
 import os
 from pathlib import Path
@@ -65,6 +66,8 @@ if not os.getenv("OCI_NAMESPACE"):
 
     static_dir = Path(__file__).parents[1] / "static"
     static_dir.mkdir(exist_ok=True)
+    (static_dir / "meme").mkdir(exist_ok=True)
+    (static_dir / "cats").mkdir(exist_ok=True)
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 

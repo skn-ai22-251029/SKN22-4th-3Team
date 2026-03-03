@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import { ArrowLeft, Trash2, Cat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Navigation } from "@/components/layout/Navigation";
@@ -17,14 +17,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { getZipsaToken, getUserCats, updateUserCat, deleteUserCat, type UserCat } from "@/lib/api";
+import {
+  getZipsaToken,
+  getUserCats,
+  updateUserCat,
+  deleteUserCat,
+  uploadCatImage,
+  type UserCat,
+} from "@/lib/api";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 export default function EditCatPage() {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
+  const imageInputRef = useRef<HTMLInputElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cat, setCat] = useState<UserCat | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -33,6 +44,7 @@ export default function EditCatPage() {
     age_months: "",
     gender: "미상",
     profile_image_url: "",
+    meme_text: "",
   });
 
   useEffect(() => {
@@ -50,6 +62,7 @@ export default function EditCatPage() {
             age_months: String(found.age_months),
             gender: found.gender,
             profile_image_url: found.profile_image_url ?? "",
+            meme_text: found.meme_text ?? "",
           });
         }
       })
@@ -58,6 +71,21 @@ export default function EditCatPage() {
 
   const set = (key: keyof typeof form, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const token = getZipsaToken();
+    if (!token) return;
+    setUploading(true);
+    try {
+      const { image_url } = await uploadCatImage(token, file);
+      set("profile_image_url", `${API_BASE}${image_url}`);
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,6 +101,7 @@ export default function EditCatPage() {
         age_months: form.age_months ? parseInt(form.age_months, 10) : 0,
         gender: form.gender,
         profile_image_url: form.profile_image_url.trim() || null,
+        meme_text: form.meme_text.trim() || null,
       });
       router.push("/my-cats");
     } catch {
@@ -122,6 +151,55 @@ export default function EditCatPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* 프로필 이미지 업로드 */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">프로필 이미지</label>
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => imageInputRef.current?.click()}
+                className="w-20 h-20 rounded-full bg-gray-100 border-2 border-gray-300 overflow-hidden flex items-center justify-center hover:border-gray-500 transition-colors shrink-0"
+              >
+                {form.profile_image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={form.profile_image_url}
+                    alt="프로필"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Cat className="w-8 h-8 text-gray-400" strokeWidth={1} />
+                )}
+              </button>
+              <div className="space-y-1">
+                <button
+                  type="button"
+                  onClick={() => imageInputRef.current?.click()}
+                  disabled={uploading}
+                  className="text-sm text-gray-700 underline underline-offset-2 disabled:opacity-50"
+                >
+                  {uploading ? "업로드 중..." : "이미지 변경"}
+                </button>
+                {form.profile_image_url && (
+                  <button
+                    type="button"
+                    onClick={() => set("profile_image_url", "")}
+                    className="block text-xs text-gray-400 hover:text-red-500 transition-colors"
+                  >
+                    삭제
+                  </button>
+                )}
+              </div>
+            </div>
+            <input
+              ref={imageInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageUpload}
+            />
+          </div>
+
           <div className="space-y-1">
             <label className="text-sm font-medium text-gray-700">이름 *</label>
             <Input
@@ -185,13 +263,16 @@ export default function EditCatPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-sm font-medium text-gray-700">프로필 이미지 URL (선택)</label>
-            <Input
-              value={form.profile_image_url}
-              onChange={(e) => set("profile_image_url", e.target.value)}
-              placeholder="https://..."
-              className="border-2 border-gray-300 focus:border-gray-900"
+            <label className="text-sm font-medium text-gray-700">냥심 한 마디</label>
+            <textarea
+              value={form.meme_text}
+              onChange={(e) => set("meme_text", e.target.value)}
+              placeholder={`예: "인간아, 지금 당장 간식을 내놓지 않으면 후회할 거다냥"`}
+              maxLength={200}
+              rows={3}
+              className="w-full border-2 border-gray-300 focus:border-gray-900 rounded-md px-3 py-2 text-sm text-gray-900 outline-none resize-none transition-colors"
             />
+            <p className="text-xs text-gray-400 text-right">{form.meme_text.length}/200</p>
           </div>
 
           <Button

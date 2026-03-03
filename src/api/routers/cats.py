@@ -3,11 +3,13 @@
 """
 import logging
 import os
+import uuid
 from datetime import datetime, timezone
+from pathlib import Path
 
 import certifi
 from bson import ObjectId
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from src.api.dependencies import get_current_user
@@ -41,6 +43,7 @@ def _doc_to_response(doc: dict) -> UserCatResponse:
         breed_name_ko=doc.get("breed_name_ko", ""),
         breed_name_en=doc.get("breed_name_en", ""),
         profile_image_url=doc.get("profile_image_url"),
+        meme_text=doc.get("meme_text"),
         health=UserCatHealth(**health_data) if health_data else UserCatHealth(),
         created_at=doc["created_at"],
         updated_at=doc["updated_at"],
@@ -121,3 +124,20 @@ async def delete_cat(
     result = await col.delete_one({"_id": ObjectId(cat_id), "user_id": current_user.user_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="고양이를 찾을 수 없습니다.")
+
+
+_CATS_STATIC_DIR = Path(__file__).parents[3] / "static" / "cats"
+
+
+@router.post("/upload-image")
+async def upload_cat_image(
+    image: UploadFile = File(...),
+    current_user: AuthUser = Depends(get_current_user),
+) -> dict:
+    """고양이 프로필 이미지 업로드 → /static/cats/{uuid}.jpg URL 반환."""
+    _CATS_STATIC_DIR.mkdir(parents=True, exist_ok=True)
+    image_bytes = await image.read()
+    ext = Path(image.filename or "image.jpg").suffix or ".jpg"
+    file_name = f"{uuid.uuid4()}{ext}"
+    (_CATS_STATIC_DIR / file_name).write_bytes(image_bytes)
+    return {"image_url": f"/static/cats/{file_name}"}
