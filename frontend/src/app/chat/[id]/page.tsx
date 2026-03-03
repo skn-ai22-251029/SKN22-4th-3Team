@@ -235,9 +235,13 @@ export default function ChatSessionPage() {
       setStreamContent("");
       setStreaming(false);
       sendingRef.current = false;
-      if (messages.length === 0) setSessionTitle(text.slice(0, 30));
-      // store 세션 업데이트 (제목 + message_count)
-      updateSession(activeSessionId, { title: text.slice(0, 30), message_count: 1 });
+      // 첫 메시지일 때만 타이틀 설정 (서버와 동일하게 첫 입력으로 고정)
+      if (messages.length === 0) {
+        setSessionTitle(text.slice(0, 30));
+        updateSession(activeSessionId, { title: text.slice(0, 30), message_count: 1 });
+      } else {
+        updateSession(activeSessionId, { message_count: 1 });
+      }
       // 새 채팅이었으면 스트리밍 완료 후 URL 확정
       if (isNew) router.replace(`/chat/${activeSessionId}`);
     }
