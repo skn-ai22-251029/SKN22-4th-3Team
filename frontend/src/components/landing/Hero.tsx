@@ -8,24 +8,24 @@ export function Hero() {
         <div className="grid grid-cols-2 gap-16 items-center">
           <div className="space-y-6">
             <div className="inline-block border-2 border-gray-300 rounded-full px-4 py-1 bg-gray-50">
-              <span className="text-sm font-medium text-gray-700">AI 수석 집사 서비스</span>
+              <span className="text-sm font-medium text-gray-700">AI 파트너 서비스</span>
             </div>
             <h1 className="text-5xl font-bold text-gray-900 leading-tight">
-              모든 집사에게는<br />수석 집사가 필요합니다.
+              완벽한 집사가 되는 길,<br />당신 곁에는 가장 스마트한<br />AI 파트너가 있습니다.
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              라이프스타일 분석부터 입양, 건강 케어까지<br />
-              AI 전문가 팀이 전방위로 지원합니다.
+              라이프스타일 분석으로 찾는 최적의 입양부터 정밀 건강 케어까지,<br />
+              AI 전문가 팀의 데이터가 당신의 반려 생활을 지원합니다.
             </p>
             <div className="flex gap-4 pt-2">
               <div className="border-2 border-gray-300 rounded-lg px-4 py-2 bg-white">
-                <p className="text-sm font-bold text-gray-900">67종 품종 데이터</p>
+                <p className="text-sm font-bold text-gray-900">67종 품종 추천</p>
               </div>
               <div className="border-2 border-gray-300 rounded-lg px-4 py-2 bg-white">
-                <p className="text-sm font-bold text-gray-900">4인 전문가 AI팀</p>
+                <p className="text-sm font-bold text-gray-900">4인 AI 전문가</p>
               </div>
               <div className="border-2 border-gray-300 rounded-lg px-4 py-2 bg-white">
-                <p className="text-sm font-bold text-gray-900">파양률 감소</p>
+                <p className="text-sm font-bold text-gray-900">행복한 첫 만남</p>
               </div>
             </div>
             <Link href="/chat">
@@ -33,7 +33,7 @@ export function Hero() {
                 size="lg"
                 className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-6 text-lg mt-4"
               >
-                집사 테스트 시작하기
+                행복한 만남의 첫걸음
               </Button>
             </Link>
           </div>
