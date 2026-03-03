@@ -27,6 +27,7 @@ ZIPSA FastAPI 서버 엔트리포인트
   POST /api/v1/meme/analyze                       — Vision AI 밈 생성
 """
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -37,11 +38,21 @@ from fastapi.staticfiles import StaticFiles
 load_dotenv(Path(__file__).parents[1] / ".env")
 
 from src.api.routers import auth, cats, chat, meme, sessions, users
+import src.agents.graph as graph_module
+
+
+@asynccontextmanager
+async def lifespan(fastapi_app: FastAPI):
+    """서버 시작 시 LangGraph 그래프를 초기화합니다 (AsyncMongoDBSaver + setup)."""
+    graph_module.app = await graph_module.create_zipsa_graph()
+    yield
+
 
 app = FastAPI(
     title="ZIPSA API",
     version="1.0.0",
     description="AI 기반 고양이 품종 매칭 및 케어 상담 서비스",
+    lifespan=lifespan,
 )
 
 app.add_middleware(

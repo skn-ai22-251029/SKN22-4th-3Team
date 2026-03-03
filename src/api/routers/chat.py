@@ -16,7 +16,7 @@ from fastapi.responses import StreamingResponse
 from langchain_core.messages import HumanMessage, AIMessage
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from src.agents.graph import app as graph_app
+import src.agents.graph as graph_module
 from src.api.dependencies import get_current_user
 from src.core.config import AuthConfig
 from src.core.models.auth import AuthUser
@@ -65,7 +65,7 @@ async def invoke_chat(
     session = await _get_session_or_404(body.session_id, current_user.user_id)
     thread_id = session["thread_id"]
 
-    result = await graph_app.ainvoke(
+    result = await graph_module.app.ainvoke(
         {
             "messages": [HumanMessage(content=body.message)],
             "user_profile": {},
@@ -114,7 +114,7 @@ async def stream_chat(
         rescue_cats = []
 
         try:
-            async for event in graph_app.astream_events(
+            async for event in graph_module.app.astream_events(
                 {
                     "messages": [HumanMessage(content=body.message)],
                     "user_profile": body.user_profile or {},
