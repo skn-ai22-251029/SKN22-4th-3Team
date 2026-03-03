@@ -63,6 +63,13 @@ export function UserCatCard({ cat, onEdit }: UserCatCardProps) {
           </div>
         )}
 
+        {/* 냥심 한 마디 */}
+        {cat.meme_text && (
+          <p className="text-xs text-gray-500 italic border-t-2 border-gray-100 pt-2">
+            {cat.meme_text}
+          </p>
+        )}
+
         {/* 접종 정보 */}
         {lastVaccination && (
           <div className="pt-2 border-t-2 border-gray-200">
@@ -75,7 +82,7 @@ export function UserCatCard({ cat, onEdit }: UserCatCardProps) {
       {/* 수정 버튼 */}
       <Button
         variant="outline"
-        className="w-full border-2 border-gray-900 text-gray-900 hover:bg-gray-100 text-sm"
+        className="w-full border-2 border-gray-900 bg-white text-gray-900 hover:bg-gray-100 text-sm"
         onClick={onEdit}
       >
         수정하기

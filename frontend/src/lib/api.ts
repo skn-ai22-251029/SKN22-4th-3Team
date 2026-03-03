@@ -252,6 +252,7 @@ export interface UserCat {
   breed_name_ko: string;
   breed_name_en: string;
   profile_image_url: string | null;
+  meme_text: string | null;
   health: UserCatHealth;
   created_at: string;
   updated_at: string;
@@ -264,6 +265,7 @@ export interface UserCatCreateRequest {
   breed_name_ko?: string;
   breed_name_en?: string;
   profile_image_url?: string | null;
+  meme_text?: string | null;
   health?: Partial<UserCatHealth>;
 }
 
@@ -274,7 +276,20 @@ export interface UserCatUpdateRequest {
   breed_name_ko?: string;
   breed_name_en?: string;
   profile_image_url?: string | null;
+  meme_text?: string | null;
   health?: Partial<UserCatHealth>;
+}
+
+export async function uploadCatImage(token: string, image: File): Promise<{ image_url: string }> {
+  const form = new FormData();
+  form.append("image", image);
+  const res = await fetch(`${API_BASE}/api/v1/users/me/cats/upload-image`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: form,
+  });
+  if (!res.ok) throw new Error(`uploadCatImage failed: ${res.status}`);
+  return res.json();
 }
 
 export async function getUserCats(token: string): Promise<UserCat[]> {
@@ -306,6 +321,33 @@ export async function updateUserCat(
     body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error(`updateUserCat failed: ${res.status}`);
+  return res.json();
+}
+
+// ── Meme ─────────────────────────────────────────────────────────────────────
+
+export interface MemeAnalyzeResponse {
+  meme_text: string;
+  breed_guess: string;
+  age_guess: string;
+  age_months: number;
+  image_url: string;
+}
+
+export async function analyzeMeme(
+  token: string,
+  image: File,
+  context: string,
+): Promise<MemeAnalyzeResponse> {
+  const form = new FormData();
+  form.append("image", image);
+  form.append("context", context);
+  const res = await fetch(`${API_BASE}/api/v1/meme/analyze`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: form,
+  });
+  if (!res.ok) throw new Error(`analyzeMeme failed: ${res.status}`);
   return res.json();
 }
 
