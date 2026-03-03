@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { ArrowLeft, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Navigation } from "@/components/layout/Navigation";
 import { GlobalDrawer } from "@/components/layout/GlobalDrawer";
+import ReactMarkdown from "react-markdown";
 import { BreedPopover } from "@/components/BreedPopover";
 import { CatCard } from "@/components/chat/CatCard";
 import { RescueCatCard } from "@/components/chat/RescueCatCard";
@@ -22,39 +23,68 @@ import {
 } from "@/lib/api";
 import { useZipsaStore } from "@/store/zipsa";
 
-// ── AI 메시지 내 품종명 → BreedPopover 인라인 렌더링 ───────────────────────
+// ── AI 메시지 마크다운 렌더링 + 품종명 BreedPopover 인라인 주입 ──────────────
 
-function renderWithPopovers(
-  content: string,
-  recommendations: Recommendation[],
-  onViewDetails: (nameKo: string) => void,
-): React.ReactNode {
-  if (!recommendations.length) return content;
+function MarkdownMessage({
+  content,
+  recommendations,
+  onViewDetails,
+}: {
+  content: string;
+  recommendations: Recommendation[];
+  onViewDetails: (nameKo: string) => void;
+}) {
+  const injectPopovers = (text: string): React.ReactNode => {
+    if (!recommendations.length) return text;
+    const names = recommendations.map((r) => r.name_ko).filter(Boolean);
+    if (!names.length) return text;
+    const escaped = names.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    const pattern = new RegExp(`(${escaped.join("|")})`, "g");
+    const parts = text.split(pattern);
+    return parts.map((part, i) => {
+      const rec = recommendations.find((r) => r.name_ko === part);
+      if (rec) {
+        return (
+          <BreedPopover
+            key={i}
+            triggerText={part}
+            breedKorean={rec.name_ko}
+            breedEnglish={rec.name_en}
+            tags={rec.tags}
+            summary={rec.summary}
+            onViewDetails={() => onViewDetails(rec.name_ko)}
+          />
+        );
+      }
+      return <span key={i}>{part}</span>;
+    });
+  };
 
-  const names = recommendations.map((r) => r.name_ko).filter(Boolean);
-  if (!names.length) return content;
-
-  const escaped = names.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  const pattern = new RegExp(`(${escaped.join("|")})`, "g");
-  const parts = content.split(pattern);
-
-  return parts.map((part, i) => {
-    const rec = recommendations.find((r) => r.name_ko === part);
-    if (rec) {
-      return (
-        <BreedPopover
-          key={i}
-          triggerText={part}
-          breedKorean={rec.name_ko}
-          breedEnglish={rec.name_en}
-          tags={rec.tags}
-          summary={rec.summary}
-          onViewDetails={() => onViewDetails(rec.name_ko)}
-        />
-      );
-    }
-    return <span key={i}>{part}</span>;
-  });
+  return (
+    <ReactMarkdown
+      components={{
+        p: ({ children }) => (
+          <p className="mb-2 last:mb-0">
+            {React.Children.map(children, (child) =>
+              typeof child === "string" ? injectPopovers(child) : child
+            )}
+          </p>
+        ),
+        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+        ul: ({ children }) => <ul className="list-disc pl-4 space-y-1 my-1">{children}</ul>,
+        ol: ({ children }) => <ol className="list-decimal pl-4 space-y-1 my-1">{children}</ol>,
+        li: ({ children }) => <li>{children}</li>,
+        a: ({ href, children }) => (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all text-xs">
+            {children}
+          </a>
+        ),
+        hr: () => <hr className="my-2 border-gray-200" />,
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  );
 }
 
 // ── 컴포넌트 ─────────────────────────────────────────────────────────────────
@@ -248,10 +278,12 @@ export default function ChatSessionPage() {
                   <div className="w-8 h-8 rounded-full bg-gray-900 border-2 border-gray-400 flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-white text-xs font-bold">Z</span>
                   </div>
-                  <div className="bg-white border-2 border-gray-300 rounded-2xl px-4 py-3 max-w-md">
-                    <p className="text-gray-900 text-sm leading-relaxed">
-                      {renderWithPopovers(msg.content, msg.recommendations ?? [], handleViewDetails)}
-                    </p>
+                  <div className="bg-white border-2 border-gray-300 rounded-2xl px-4 py-3 max-w-md text-gray-900 text-sm leading-relaxed">
+                    <MarkdownMessage
+                      content={msg.content}
+                      recommendations={msg.recommendations ?? []}
+                      onViewDetails={handleViewDetails}
+                    />
                   </div>
                 </div>
               ),
@@ -276,16 +308,20 @@ export default function ChatSessionPage() {
                 <div className="w-8 h-8 rounded-full bg-gray-900 border-2 border-gray-400 flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-white text-xs font-bold">Z</span>
                 </div>
-                <div className="bg-white border-2 border-gray-300 rounded-2xl px-4 py-3 max-w-md">
-                  <p className="text-gray-900 text-sm leading-relaxed">
-                    {streamContent || (
-                      <span className="inline-flex gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "300ms" }} />
-                      </span>
-                    )}
-                  </p>
+                <div className="bg-white border-2 border-gray-300 rounded-2xl px-4 py-3 max-w-md text-gray-900 text-sm leading-relaxed">
+                  {streamContent ? (
+                    <MarkdownMessage
+                      content={streamContent}
+                      recommendations={[]}
+                      onViewDetails={handleViewDetails}
+                    />
+                  ) : (
+                    <span className="inline-flex gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </span>
+                  )}
                 </div>
               </div>
             )}

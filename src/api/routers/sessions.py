@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 import certifi
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from langchain_core.messages import AIMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from motor.motor_asyncio import AsyncIOMotorClient
 
 import src.agents.graph as graph_module
@@ -126,14 +126,23 @@ async def list_messages(
     messages = state.values.get("messages", [])
     result = []
     for i, msg in enumerate(messages[-limit:]):
+        # ToolMessage와 내용 없는 AIMessage(tool call 전용) 제외
+        if isinstance(msg, ToolMessage):
+            continue
+        if isinstance(msg, AIMessage) and not msg.content:
+            continue
+
         role = "human" if isinstance(msg, HumanMessage) else "ai"
         rag_docs = []
         recommendations = []
+        rescue_cats = []
         if isinstance(msg, AIMessage):
             for doc in state.values.get("rag_docs", []):
                 rag_docs.append(RagDoc(**doc) if isinstance(doc, dict) else doc)
             for rec in state.values.get("recommendations", []):
                 recommendations.append(Recommendation(**rec) if isinstance(rec, dict) else rec)
+            for cat in state.values.get("rescue_cats", []):
+                rescue_cats.append(cat)
         result.append(ChatMessageResponse(
             message_id=f"{session_id}-{i}",
             session_id=session_id,
@@ -141,6 +150,7 @@ async def list_messages(
             content=msg.content if isinstance(msg.content, str) else str(msg.content),
             recommendations=recommendations,
             rag_docs=rag_docs,
+            rescue_cats=rescue_cats,
             created_at=session["created_at"],
         ))
     return result
