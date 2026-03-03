@@ -16,7 +16,7 @@ from fastapi.responses import StreamingResponse
 from langchain_core.messages import HumanMessage, AIMessage
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from src.agents.graph import app as graph_app
+import src.agents.graph as graph_module
 from src.api.dependencies import get_current_user
 from src.core.config import AuthConfig
 from src.core.models.auth import AuthUser
@@ -44,16 +44,26 @@ async def _get_session_or_404(session_id: str, user_id: str) -> dict:
     return doc
 
 
-async def _update_session_meta(session_id: str, last_message: str, increment: int = 2) -> None:
+async def _update_session_meta(
+    session_id: str, last_message: str, title: str | None = None, increment: int = 2
+) -> None:
     """세션의 last_message, message_count, updated_at 갱신."""
     col = _get_sessions_col()
+    set_fields: dict = {"last_message": last_message, "updated_at": datetime.now(timezone.utc)}
+    if title is not None:
+        set_fields["title"] = title
     await col.update_one(
         {"_id": ObjectId(session_id)},
         {
-            "$set": {"last_message": last_message, "updated_at": datetime.now(timezone.utc)},
+            "$set": set_fields,
             "$inc": {"message_count": increment},
         },
     )
+
+
+def _auto_title(message: str) -> str:
+    """첫 메시지에서 세션 타이틀 자동 생성 (최대 30자)."""
+    return message[:30] + ("..." if len(message) > 30 else "")
 
 
 @router.post("/invoke", response_model=ChatInvokeResponse)
@@ -65,7 +75,7 @@ async def invoke_chat(
     session = await _get_session_or_404(body.session_id, current_user.user_id)
     thread_id = session["thread_id"]
 
-    result = await graph_app.ainvoke(
+    result = await graph_module.app.ainvoke(
         {
             "messages": [HumanMessage(content=body.message)],
             "user_profile": {},
@@ -87,7 +97,8 @@ async def invoke_chat(
         for r in result.get("recommendations", [])
     ]
 
-    await _update_session_meta(body.session_id, body.message)
+    title = _auto_title(body.message) if not session.get("title") else None
+    await _update_session_meta(body.session_id, body.message, title=title)
 
     message_id = f"{thread_id}-{len(result.get('messages', []))}"
     return ChatInvokeResponse(
@@ -114,7 +125,7 @@ async def stream_chat(
         rescue_cats = []
 
         try:
-            async for event in graph_app.astream_events(
+            async for event in graph_module.app.astream_events(
                 {
                     "messages": [HumanMessage(content=body.message)],
                     "user_profile": body.user_profile or {},
@@ -153,7 +164,8 @@ async def stream_chat(
             yield f"data: {json.dumps({'type': 'error', 'content': '응답 생성 중 오류가 발생했습니다.'})}\n\n"
         finally:
             if full_content:
-                await _update_session_meta(body.session_id, body.message)
+                title = _auto_title(body.message) if not session.get("title") else None
+                await _update_session_meta(body.session_id, body.message, title=title)
             yield "data: [DONE]\n\n"
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")

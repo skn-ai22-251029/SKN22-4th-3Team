@@ -21,8 +21,11 @@ from .tools.animal_protection import search_abandoned_animals
 tools = [search_abandoned_animals]
 tool_node = ToolNode(tools)
 
+# lifespan에서 초기화됨 (None 상태로 시작)
+app = None
 
-def create_zipsa_graph():
+
+async def create_zipsa_graph():
     """
     에이전트 그래프 생성:
     - head_butler: 메인 라우터 겸 유일한 종료 지점. 모든 전문가의 결과는 여기로 모임.
@@ -30,13 +33,13 @@ def create_zipsa_graph():
     - liaison: 입양/구조 정보 (RAG specialist=Liaison + 동물보호 API 도구)
     - tools: 국가동물보호정보시스템 조회 (liaison이 호출)
     - care: 건강 + 행동 상담 (Physician + Peacekeeper 통합)
-    
-    참고: 각 노드는 Command(goto=...)를 사용하여 동적 라우팅을 수행하므로, 
+
+    참고: 각 노드는 Command(goto=...)를 사용하여 동적 라우팅을 수행하므로,
     아래 정의된 static edges는 주로 그래프 시각화 및 구조 명시용으로 작동합니다.
     """
-
     mongo_client = MongoClient(os.getenv("MONGO_V3_URI"), tlsCAFile=certifi.where())
     checkpointer = MongoDBSaver(mongo_client)
+
     workflow = StateGraph(AgentState)
 
     # 1. 노드 등록 (Node Registration)
@@ -88,7 +91,3 @@ def create_zipsa_graph():
     workflow.add_edge("care", "head_butler")
 
     return workflow.compile(checkpointer=checkpointer)
-
-
-# 앱 인스턴스 생성 및 내보내기
-app = create_zipsa_graph()
